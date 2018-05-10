@@ -45,17 +45,17 @@ exports.findAllBestSeller = function(req, res) {
     });
 };
 
-// exports.findOne = function(req, res) {
-//     // Find a single note with a noteId
-//     var id = req.params.celebrityId;
-//     productModel.findOne(id, function(err, data){
-//         if(err){
-//             res.status(400).send(err);
-//             return;
-//         }
-//         res.status(201).send(data);
-//     });
-// };
+exports.findOne = function(req, res) {
+    // Find a single note with a noteId
+    var id = req.params.productID;
+    productModel.findOne(id, function(err, data){
+        if(err){
+            res.status(400).send(err);
+            return;
+        }
+        res.status(201).send(data);
+    });
+};
 
 // exports.update = function(req, res) {
 //     // Update a note identified by the noteId in the request

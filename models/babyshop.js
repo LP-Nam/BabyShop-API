@@ -14,17 +14,17 @@ exports.findAllBestSeller = function (callback) {
     });
 }
 
+exports.findOne = function(productID, callback){
+    var strSql = "SELECT SanPham.MaSanPham, SanPham.TenSanPham, SanPham.GiaSanPham, SanPham.HinhURL FROM SanPham WHERE SanPham.BiXoa = FALSE AND SanPham.MaSanPham = ?";
+    db.executeQuery(strSql, productID, callback);
+}
+
 // exports.create = function(celebrity, callback){
 //     db.executeQuery("INSERT INTO `showbiz`.`celebrities` SET ?", celebrity, callback);
 // }
 
 // exports.delete = function(celebId, callback){
 //     var strSql = "delete from celebrities where id = ?";
-//     db.executeQuery(strSql, celebId, callback);
-// }
-
-// exports.findOne = function(celebId, callback){
-//     var strSql = "select * from celebrities where id = ?";
 //     db.executeQuery(strSql, celebId, callback);
 // }
 

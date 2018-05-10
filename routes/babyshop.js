@@ -15,8 +15,8 @@ router.get('/new', babyshop.findAllNew);
 // Retrieve all best seller product
 router.get('/best-seller', babyshop.findAllBestSeller);
 
-// // Retrieve a single celebrities with noteId
-// router.get('/celebrities/:celebrityId', babyshop.findOne);
+// Retrieve a single product with id
+router.get('/product/:productID', babyshop.findOne);
 
 // // Update a celebrities with celebrityId
 // router.put('/celebrities/:celebrityId', babyshop.update);
