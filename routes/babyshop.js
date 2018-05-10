@@ -12,6 +12,9 @@ var babyshop = require('../controllers/babyshop');
 // Retrieve all new product
 router.get('/new', babyshop.findAllNew);
 
+// Retrieve all best seller product
+router.get('/best-seller', babyshop.findAllBestSeller);
+
 // // Retrieve a single celebrities with noteId
 // router.get('/celebrities/:celebrityId', babyshop.findOne);
 

@@ -34,6 +34,17 @@ exports.findAllNew = function(req, res) {
     });
 };
 
+exports.findAllBestSeller = function(req, res) {
+    // Retrieve and return all notes from the database.
+    productModel.findAllBestSeller(function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
 // exports.findOne = function(req, res) {
 //     // Find a single note with a noteId
 //     var id = req.params.celebrityId;

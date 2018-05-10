@@ -7,6 +7,13 @@ exports.findAllNew = function (callback) {
     });
 }
 
+exports.findAllBestSeller = function (callback) {
+    var strSql = "SELECT SanPham.MaSanPham, SanPham.TenSanPham, SanPham.GiaSanPham, SanPham.HinhURL FROM SanPham WHERE SanPham.BiXoa = FALSE ORDER BY SanPham.SoLuongBan DESC LIMIT 0, 4"
+    db.executeQuery(strSql, function (err, data){
+        callback(err, data);
+    });
+}
+
 // exports.create = function(celebrity, callback){
 //     db.executeQuery("INSERT INTO `showbiz`.`celebrities` SET ?", celebrity, callback);
 // }
