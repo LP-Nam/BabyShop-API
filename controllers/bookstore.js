@@ -1,4 +1,4 @@
-var productModel = require('../models/babyshop.js');
+var productModel = require('../models/bookstore.js');
 
 exports.createFactory = function(req, res) {
     productModel.createFactory(req.body, function (err,data) {
@@ -19,6 +19,18 @@ exports.createCategory = function(req, res) {
         res.status(201).send();
     });
 };
+
+exports.createProduct = function(req, res) {
+    productModel.createProduct(req.body, function (err,data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.status(201).send();
+    });
+};
+
+
 
 exports.findAllNew = function(req, res) {
     // Retrieve and return all notes from the database.

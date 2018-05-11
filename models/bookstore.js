@@ -39,6 +39,11 @@ exports.createCategory = function(category, callback){
     db.executeQuery(strSql, category, callback);
 }
 
+exports.createProduct = function(product, callback){
+    var strSql = "INSERT INTO sanpham set ?";
+    db.executeQuery(strSql, product, callback);
+}
+
 // exports.delete = function(celebId, callback){
 //     var strSql = "delete from celebrities where id = ?";
 //     db.executeQuery(strSql, celebId, callback);
