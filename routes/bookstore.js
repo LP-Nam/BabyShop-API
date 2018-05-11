@@ -27,8 +27,8 @@ router.get('/product/best-seller', bookstore.findAllBestSeller);
 // Retrieve a single product with id
 router.get('/product/:productID', bookstore.findOne);
 
-// lay san pham theo ma hang san xuat
-router.get('/product/factory/:factoryID', bookstore.findByFactory);
+// lay san pham theo ma nha xuat ban
+router.get('/product/publisher/:publisherID', bookstore.findByPublisher);
 
 // lay san pham theo ma loai san pham
 router.get('/product/category/:categoryID', bookstore.findByCategory);

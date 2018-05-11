@@ -66,9 +66,9 @@ exports.findOne = function(req, res) {
     });
 };
 
-exports.findByFactory = function(req, res) {
-    var id = req.params.factoryID;
-    productModel.findByFactory(id, function(err, data){
+exports.findByPublisher = function(req, res) {
+    var id = req.params.publisherID;
+    productModel.findByPublisher(id, function(err, data){
         if (err) {
             res.status(400).send(err);
             return;

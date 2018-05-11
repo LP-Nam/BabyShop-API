@@ -1,31 +1,58 @@
 var db = require('./managerDB');
 
 exports.findAllNew = function (callback) {
-    var strSql = "SELECT SanPham.MaSanPham, SanPham.TenSanPham, SanPham.GiaSanPham, SanPham.HinhURL FROM SanPham ORDER BY SanPham.NgayNhap DESC LIMIT 0, 4"
+    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL "+
+    "from sanpham sp "+
+    "where  sp.BiXoa = FALSE "+
+    "ORDER BY NgayNhap desc "+
+    "LIMIT 0, 8";
     db.executeQuery(strSql, function (err, data){
         callback(err, data);
     });
 }
 
 exports.findAllBestSeller = function (callback) {
-    var strSql = "SELECT SanPham.MaSanPham, SanPham.TenSanPham, SanPham.GiaSanPham, SanPham.HinhURL FROM SanPham WHERE SanPham.BiXoa = FALSE ORDER BY SanPham.SoLuongBan DESC LIMIT 0, 4"
+    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL "+
+    "from sanpham sp "+
+    "where  sp.BiXoa = FALSE "+
+    "ORDER BY SoLuongBan desc "+
+    "LIMIT 0, 8";
     db.executeQuery(strSql, function (err, data){
         callback(err, data);
     });
 }
 
 exports.findOne = function(productID, callback){
-    var strSql = "SELECT SanPham.MaSanPham, SanPham.TenSanPham, SanPham.GiaSanPham, SanPham.HinhURL FROM SanPham WHERE SanPham.BiXoa = FALSE AND SanPham.MaSanPham = ?";
+    var strSql = "SELECT `sanpham`.`MaSanPham`,"+
+    "`sanpham`.`TenSanPham`,"+
+    "`sanpham`.`TenTacGia`,"+
+    "`sanpham`.`HinhURL`,"+
+    "`sanpham`.`GiaSanPham`,"+
+    "`sanpham`.`NgayNhap`,"+
+    "`sanpham`.`SoLuongTon`,"+
+    "`sanpham`.`SoLuongBan`,"+
+    "`sanpham`.`SoLuocXem`,"+
+    "`sanpham`.`MoTa`,"+
+    "`sanpham`.`BiXoa`,"+
+    "`sanpham`.`MaLoaiSanPham`,"+
+    "`sanpham`.`MaHangSanXuat` "+
+    "FROM `bansach`.`sanpham` WHERE `sanpham`.`MaSanPham` = ?";
     db.executeQuery(strSql, productID, callback);
 }
 
-exports.findByFactory = function(factoryID, callback){
-    var strSql = "SELECT SanPham.MaSanPham, SanPham.TenSanPham, SanPham.GiaSanPham, SanPham.HinhURL FROM SanPham WHERE SanPham.BiXoa = FALSE AND SanPham.MaHangSanXuat = ?";
-    db.executeQuery(strSql, factoryID, callback);
+exports.findByPublisher = function(publisherID, callback){
+    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL "+
+    "from sanpham sp "+
+    "where  sp.BiXoa = FALSE "+
+    "and sp.MaHangSanXuat = ?";
+    db.executeQuery(strSql, publisherID, callback);
 }
 
 exports.findByCategory = function(categoryID, callback){
-    var strSql = "SELECT SanPham.MaSanPham, SanPham.TenSanPham, SanPham.GiaSanPham, SanPham.HinhURL FROM SanPham WHERE SanPham.BiXoa = FALSE AND SanPham.MaLoaiSanPham = ?";
+    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL "+
+    "from sanpham sp "+
+    "where sp.BiXoa = FALSE "+
+    "and sp.MaLoaiSanPham = ?";
     db.executeQuery(strSql, categoryID, callback);
 }
 
