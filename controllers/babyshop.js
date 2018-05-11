@@ -1,27 +1,24 @@
 var productModel = require('../models/babyshop.js');
 
-// exports.create = function(req, res) {
-//     // Create and Save a new celebrity
+exports.createFactory = function(req, res) {
+    productModel.createFactory(req.body, function (err,data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.status(201).send();
+    });
+};
 
-//     productModel.create(req.body, function (err,data) {
-//         if (err) {
-//             res.status(400).send(err);
-//             return;
-//         }
-//         res.status(201).send();
-//     });
-// };
-
-// exports.findAll = function(req, res) {
-//     // Retrieve and return all notes from the database.
-//     productModel.findAll(function(err, data){
-//         if (err) {
-//             res.status(400).send(err);
-//             return;
-//         }
-//         res.send(data);
-//     });
-// };
+exports.createCategory = function(req, res) {
+    productModel.createCategory(req.body, function (err,data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.status(201).send();
+    });
+};
 
 exports.findAllNew = function(req, res) {
     // Retrieve and return all notes from the database.
@@ -54,6 +51,28 @@ exports.findOne = function(req, res) {
             return;
         }
         res.status(201).send(data);
+    });
+};
+
+exports.findByFactory = function(req, res) {
+    var id = req.params.factoryID;
+    productModel.findByFactory(id, function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.findByCategory = function(req, res) {
+    var id = req.params.categoryID;
+    productModel.findByCategory(id, function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
     });
 };
 

@@ -19,9 +19,25 @@ exports.findOne = function(productID, callback){
     db.executeQuery(strSql, productID, callback);
 }
 
-// exports.create = function(celebrity, callback){
-//     db.executeQuery("INSERT INTO `showbiz`.`celebrities` SET ?", celebrity, callback);
-// }
+exports.findByFactory = function(factoryID, callback){
+    var strSql = "SELECT SanPham.MaSanPham, SanPham.TenSanPham, SanPham.GiaSanPham, SanPham.HinhURL FROM SanPham WHERE SanPham.BiXoa = FALSE AND SanPham.MaHangSanXuat = ?";
+    db.executeQuery(strSql, factoryID, callback);
+}
+
+exports.findByCategory = function(categoryID, callback){
+    var strSql = "SELECT SanPham.MaSanPham, SanPham.TenSanPham, SanPham.GiaSanPham, SanPham.HinhURL FROM SanPham WHERE SanPham.BiXoa = FALSE AND SanPham.MaLoaiSanPham = ?";
+    db.executeQuery(strSql, categoryID, callback);
+}
+
+exports.createFactory = function(factory, callback){
+    var strSql = "INSERT INTO hangsanxuat set ?";
+    db.executeQuery(strSql, factory, callback);
+}
+
+exports.createCategory = function(category, callback){
+    var strSql = "INSERT INTO loaisanpham set ?";
+    db.executeQuery(strSql, category, callback);
+}
 
 // exports.delete = function(celebId, callback){
 //     var strSql = "delete from celebrities where id = ?";
