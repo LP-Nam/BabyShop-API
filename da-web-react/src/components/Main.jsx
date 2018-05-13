@@ -14,7 +14,8 @@ class Main extends Component {
 		this.render = this.render.bind(this);
 
 		this.state = {
-			items: [{}]
+			newItems: [{}],
+			mostPopularItems: [{}]
 		}
 	}
 
@@ -25,7 +26,7 @@ class Main extends Component {
         (result) => {
         	console.log(result);
           this.setState({
-            items: result
+            newItems: result
           });
         },
 
@@ -34,10 +35,39 @@ class Main extends Component {
             error
           });
         }
-      )
+      );
+      fetch("http://localhost:3001/api/product/best-seller")
+      .then(res => res.json())
+      .then(
+        (result) => {
+        	console.log(result);
+          this.setState({
+            mostPopularItems: result
+          });
+        },
+
+        (error) => {
+          this.setState({
+            error
+          });
+        }
+      );
   	}
 
 	render() {
+
+		// const cards = this.state.newItems.map((sach, index) => {
+		// 	const ten = sach.TenSanPham;
+		// 	const url = sach.HinhURL;
+		// 	const ma = sach.MaSanPham;
+		// 	const tacGia = sach.TenTacGia;
+		// 	const gia = sach.GiaSanPham;
+
+		// 	return (
+		// 		<Card tenSach={ten} tenTacGia={tacGia} giaBan={gia} maSach={ma} hinhAnh={"../src/images/"+url}/>
+		// 	);
+		// });
+
 		return(
 			<div>
 				<TopBar />
@@ -49,7 +79,7 @@ class Main extends Component {
 							<ListType />
 						</div>
 						<div className="w72p pull-right">
-							<Content />
+							<Content newItems={this.state.newItems} mostPopularItems={this.state.mostPopularItems} />
 						</div>
 					</div> 
 				</div>
