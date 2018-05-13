@@ -1,7 +1,7 @@
 var productModel = require('../models/bookstore.js');
 
-exports.createFactory = function(req, res) {
-    productModel.createFactory(req.body, function (err,data) {
+exports.createPublisher = function(req, res) {
+    productModel.createPublisher(req.body, function (err,data) {
         if (err) {
             res.status(400).send(err);
             return;

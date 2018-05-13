@@ -6,8 +6,8 @@ var bookstore = require('../controllers/bookstore');
 // // Create a new Note
 // router.post('/celebrities', bookstore.create);
 
-// create hang san xuat
-router.post('/product/factory', bookstore.createFactory);
+// create nha xuat ban
+router.post('/product/publisher', bookstore.createPublisher);
 
 //create loai san pham
 router.post('/product/category', bookstore.createCategory);
