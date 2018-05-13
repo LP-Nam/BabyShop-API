@@ -56,7 +56,7 @@ exports.findByCategory = function(categoryID, callback){
     db.executeQuery(strSql, categoryID, callback);
 }
 
-exports.createFactory = function(factory, callback){
+exports.createPublisher = function(factory, callback){
     var strSql = "INSERT INTO hangsanxuat set ?";
     db.executeQuery(strSql, factory, callback);
 }
