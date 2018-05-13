@@ -13,14 +13,19 @@ class Card extends Component {
 			hinhAnh: ""
 		}
 	}
-
+	editBookName =()=>
+	{
+		var str = new String(this.props.tenSach);
+		str = str.substr(0,15)+"...";
+		return  str;
+	}
 	render() {
 		return(
-			<div className="w12e pull-left" title={this.props.thongTin}>
+			<div className="w12e pull-left" title={this.props.tenSach}>
 				<div className="thumbnail productThumb">
 					<a href="">
-						<img src={process.env.PUBLIC_URL + this.props.hinhanh} alt="image" />
-						<h4>{this.props.tenSach}</h4>
+						<img src={this.props.hinhAnh} alt="image" />
+						<h4>{this.editBookName()}</h4>
 						<h4 className="small">{this.props.tenTacGia}</h4>
 						<h4 className="price">{this.props.giaBan},000 VNĐ</h4>
 					</a>
