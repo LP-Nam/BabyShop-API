@@ -19,7 +19,7 @@ class Card extends Component {
 			<div className="w12e pull-left" title={this.props.thongTin}>
 				<div className="thumbnail productThumb">
 					<a href="">
-						<img src={this.props.hinhAnh} alt=""/>
+						<img src={process.env.PUBLIC_URL + this.props.hinhanh} alt="image" />
 						<h4>{this.props.tenSach}</h4>
 						<h4 className="small">{this.props.tenTacGia}</h4>
 						<h4 className="price">{this.props.giaBan},000 VNĐ</h4>

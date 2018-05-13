@@ -1,12 +1,12 @@
 import React from "react";
-import ListBookItem from "./ListBookItem";
+import Card from "./Card"
 class BookBoughtMany extends React.Component{
     render()
     {
         return(
             <div class="clearfix">
                 <h2 class="page-header">Sách được mua nhiều</h2>
-                <ListBookItem />
+                <Card />
              </div>
         )
     }
