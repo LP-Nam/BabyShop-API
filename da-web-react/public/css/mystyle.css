@@ -1,0 +1,207 @@
+body {
+    background-color: #f9f9f9;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+}
+
+#navigation .navbar .nav li a {
+    text-shadow: none;
+    color: #fff;
+}
+
+#navigation .navbar .nav li a:hover {
+    background-color: #f5f5f5;
+    color: #337ab7;
+}
+
+#page {
+    margin: 2em 0.1em 5em 0;
+}
+
+.thumbnail h4 {
+    text-align: center;
+}
+
+.productThumb {
+    width: 13em;
+    float: left;
+    margin: 1em;
+}
+
+.price {
+    color: red;
+    font-weight: bold;
+}
+
+#topBar .navbar-inverse {
+    background-color: transparent;
+    border: none;
+    color: #000;
+    margin: 0;
+}
+
+#topBar .navbar .nav li a {
+    text-shadow: none;
+    color: #000;
+}
+
+#topBar .navbar .nav li a:hover {
+    color: #337ab7;
+    cursor: pointer;
+}
+
+.m0 {
+    margin: 0;
+}
+
+.wA {
+    width: auto;
+}
+
+.panel ul li {
+    list-style-type: none;
+}
+
+.panel .panel-heading {
+    background: black;
+    color: #fff;
+}
+
+#productDetail ul li.list-group-item {
+    border: none;
+}
+
+#productDetail img {
+    width: 100%;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+#searchBox {
+    margin-right: 0;
+}
+
+#advSearch {
+    position: absolute;
+    z-index: 1;
+    display: none;
+}
+
+#advSearch ul li {
+    border: none;
+}
+
+#advSearch select,
+#advSearch input {
+    width: 100%;
+}
+
+#submenu ul li {
+    border: none;
+    list-style-type: none;
+}
+
+#submenu .panel-heading {
+    background-color: #222;
+    color: #fff;
+}
+
+#submenu {
+    margin: 0;
+}
+
+.frmLogin {
+    margin: auto;
+}
+
+.frmLogin input {
+    display: inline-block;
+    width: auto;
+    margin-top: 1em;
+}
+
+#frmRegister input {
+    margin-bottom: 1em;
+}
+
+#frmRegister select,
+#userInfo select {
+    display: inline-block;
+}
+
+.carousel-inner>.item>img {
+    height: 20em;
+    margin: auto;
+}
+
+#txtSoLuongNhap {
+    display: inline-block;
+    width: 5em;
+}
+
+.nb td {
+    border: none !important;
+}
+
+.active td {
+    font-weight: bold;
+}
+
+.table tr td {
+    vertical-align: middle !important;
+}
+
+.filter .form-control {
+    width: auto;
+    display: inline-block;
+    margin: 0.3em;
+}
+
+.filter {
+    margin: 2em 0;
+}
+
+.w25p {
+    width: 25%;
+}
+
+.w72p {
+    width: 72%;
+}
+
+.w60p {
+    width: 60%;
+}
+
+.w40p {
+    width: 40%;
+}
+
+.w100p {
+    width: 100%;
+}
+
+.w12e {
+    width: 14em;
+}
+
+#submenu {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+#submenu ul li {
+    list-style-type: none;
+}
+
+.black {
+    background-color: #222 !important;
+    color: #fff !important;
+}
