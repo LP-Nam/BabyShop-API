@@ -76,6 +76,25 @@ exports.findByPublisher = function(req, res) {
         res.send(data);
     });
 };
+exports.findAllPublisher = function(req, res) {
+    productModel.findAllPublisher(function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.findAllType = function(req, res) {
+    productModel.findAllType(function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
 
 exports.findByCategory = function(req, res) {
     var id = req.params.categoryID;

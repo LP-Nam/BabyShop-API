@@ -10,6 +10,23 @@ exports.findAllNew = function (callback) {
         callback(err, data);
     });
 }
+exports.findAllPublisher = function (callback) {
+    var strSql = "SELECT hsx.TenHangSanXuat,hsx.MaHangSanXuat "+
+    "from hangsanxuat hsx "+
+    "where  hsx.BiXoa = FALSE ";
+    db.executeQuery(strSql, function (err, data){
+        callback(err, data);
+    });
+}
+
+exports.findAllType = function (callback) {
+    var strSql = "SELECT lsp.MaLoaiSanPham,lsp.TenLoaiSanPham "+
+    "from loaisanpham lsp "+
+    "where  lsp.BiXoa = FALSE ";
+    db.executeQuery(strSql, function (err, data){
+        callback(err, data);
+    });
+}
 
 exports.findAllBestSeller = function (callback) {
     var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL "+
