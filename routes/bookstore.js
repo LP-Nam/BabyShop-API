@@ -21,6 +21,12 @@ router.post('/product', bookstore.createProduct);
 // Retrieve all new product
 router.get('/product/new', bookstore.findAllNew);
 
+//Retrieve all publisher
+router.get('/product/publisher', bookstore.findAllPublisher);
+
+//Retrieve all type
+router.get('/product/type', bookstore.findAllType);
+
 // Retrieve all best seller product
 router.get('/product/best-seller', bookstore.findAllBestSeller);
 
