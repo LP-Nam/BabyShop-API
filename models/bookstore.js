@@ -1,89 +1,80 @@
 var db = require('./managerDB');
 
 exports.findAllNew = function (callback) {
-    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL "+
-    "from sanpham sp "+
-    "where  sp.BiXoa = FALSE "+
-    "ORDER BY NgayNhap desc "+
-    "LIMIT 0, 8";
-    db.executeQuery(strSql, function (err, data){
+    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
+        "from sanpham sp " +
+        "where  sp.BiXoa = FALSE " +
+        "ORDER BY NgayNhap desc " +
+        "LIMIT 0, 8";
+    db.executeQuery(strSql, function (err, data) {
         callback(err, data);
     });
 }
 exports.findAllPublisher = function (callback) {
-    var strSql = "SELECT hsx.TenHangSanXuat,hsx.MaHangSanXuat "+
-    "from hangsanxuat hsx "+
-    "where  hsx.BiXoa = FALSE ";
-    db.executeQuery(strSql, function (err, data){
+    var strSql = "SELECT hsx.TenHangSanXuat,hsx.MaHangSanXuat " +
+        "from hangsanxuat hsx " +
+        "where  hsx.BiXoa = FALSE ";
+    db.executeQuery(strSql, function (err, data) {
         callback(err, data);
     });
 }
 
 exports.findAllType = function (callback) {
-    var strSql = "SELECT lsp.MaLoaiSanPham,lsp.TenLoaiSanPham "+
-    "from loaisanpham lsp "+
-    "where  lsp.BiXoa = FALSE ";
-    db.executeQuery(strSql, function (err, data){
+    var strSql = "SELECT lsp.MaLoaiSanPham,lsp.TenLoaiSanPham " +
+        "from loaisanpham lsp " +
+        "where  lsp.BiXoa = FALSE ";
+    db.executeQuery(strSql, function (err, data) {
         callback(err, data);
     });
 }
 
 exports.findAllBestSeller = function (callback) {
-    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL "+
-    "from sanpham sp "+
-    "where  sp.BiXoa = FALSE "+
-    "ORDER BY SoLuongBan desc "+
-    "LIMIT 0, 8";
-    db.executeQuery(strSql, function (err, data){
+    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
+        "from sanpham sp " +
+        "where  sp.BiXoa = FALSE " +
+        "ORDER BY SoLuongBan desc " +
+        "LIMIT 0, 8";
+    db.executeQuery(strSql, function (err, data) {
         callback(err, data);
     });
 }
 
-exports.findOne = function(productID, callback){
-    var strSql = "SELECT `sanpham`.`MaSanPham`,"+
-    "`sanpham`.`TenSanPham`,"+
-    "`sanpham`.`TenTacGia`,"+
-    "`sanpham`.`HinhURL`,"+
-    "`sanpham`.`GiaSanPham`,"+
-    "`sanpham`.`NgayNhap`,"+
-    "`sanpham`.`SoLuongTon`,"+
-    "`sanpham`.`SoLuongBan`,"+
-    "`sanpham`.`SoLuocXem`,"+
-    "`sanpham`.`MoTa`,"+
-    "`sanpham`.`BiXoa`,"+
-    "`sanpham`.`MaLoaiSanPham`,"+
-    "`sanpham`.`MaHangSanXuat` "+
-    "FROM `bansach`.`sanpham` WHERE `sanpham`.`MaSanPham` = ?";
+exports.findOne = function (productID, callback) {
+    var strSql = "SELECT lsp.MaLoaiSanPham, sp.GiaSanPham, sp.SoLuongTon, sp.MoTa, sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL,hsx.TenHangSanXuat,lsp.TenLoaiSanPham " +
+        "from sanpham sp,hangsanxuat hsx,loaisanpham lsp " +
+        "where sp.MaLoaiSanPham = lsp.MaLoaiSanPham " +
+        "and sp.MaHangSanXuat = hsx.MaHangSanXuat " +
+        "and sp.MaSanPham = ?";
     db.executeQuery(strSql, productID, callback);
 }
 
-exports.findByPublisher = function(publisherID, callback){
-    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL "+
-    "from sanpham sp "+
-    "where  sp.BiXoa = FALSE "+
-    "and sp.MaHangSanXuat = ?";
+exports.findByPublisher = function (publisherID, callback) {
+    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
+        "from sanpham sp " +
+        "where  sp.BiXoa = FALSE " +
+        "and sp.MaHangSanXuat = ?";
     db.executeQuery(strSql, publisherID, callback);
 }
 
-exports.findByCategory = function(categoryID, callback){
-    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL "+
-    "from sanpham sp "+
-    "where sp.BiXoa = FALSE "+
-    "and sp.MaLoaiSanPham = ?";
+exports.findByCategory = function (categoryID, callback) {
+    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
+        "from sanpham sp " +
+        "where sp.BiXoa = FALSE " +
+        "and sp.MaLoaiSanPham = ?";
     db.executeQuery(strSql, categoryID, callback);
 }
 
-exports.createPublisher = function(factory, callback){
+exports.createPublisher = function (factory, callback) {
     var strSql = "INSERT INTO hangsanxuat set ?";
     db.executeQuery(strSql, factory, callback);
 }
 
-exports.createCategory = function(category, callback){
+exports.createCategory = function (category, callback) {
     var strSql = "INSERT INTO loaisanpham set ?";
     db.executeQuery(strSql, category, callback);
 }
 
-exports.createProduct = function(product, callback){
+exports.createProduct = function (product, callback) {
     var strSql = "INSERT INTO sanpham set ?";
     db.executeQuery(strSql, product, callback);
 }
