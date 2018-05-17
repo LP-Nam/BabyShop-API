@@ -1,4 +1,4 @@
-# Quy định tạo API
+# DANH SÁCH API ĐÃ TẠO
 
 * METHOD - URL:
     * GET  ***/api/product/new*** lấy danh sách sản phẩm mới nhất.
