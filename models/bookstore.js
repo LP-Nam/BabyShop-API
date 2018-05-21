@@ -85,10 +85,18 @@ exports.findRelated = function (idBook, maLoai, callback) {
         "where sp.BiXoa = FALSE " +
         "and sp.MaSanPham <> ? " +
         "and sp.MaLoaiSanPham = ? " +
-        "order by rand() "+
+        "order by rand() " +
         "LIMIT 0, 4";
 
     db.executeQuery(sql, [idBook, maLoai], callback);
+}
+
+exports.findAllAccount = function (callback) {
+    var sql = "select tk.MaTaiKhoan, tk.TenDangNhap, tk.MatKhau, tk.TenHienThi, tk.MaLoaiTaiKhoan " +
+        "from taikhoan tk " +
+        "where tk.BiXoa=false";
+
+    db.executeQuery(sql, callback);
 }
 
 // exports.delete = function(celebId, callback){
