@@ -79,6 +79,18 @@ exports.createProduct = function (product, callback) {
     db.executeQuery(strSql, product, callback);
 }
 
+exports.findRelated = function (idBook, maLoai, callback) {
+    var sql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
+        "from sanpham sp " +
+        "where sp.BiXoa = FALSE " +
+        "and sp.MaSanPham <> ? " +
+        "and sp.MaLoaiSanPham = ? " +
+        "order by rand() "+
+        "LIMIT 0, 4";
+
+    db.executeQuery(sql, [idBook, maLoai], callback);
+}
+
 // exports.delete = function(celebId, callback){
 //     var strSql = "delete from celebrities where id = ?";
 //     db.executeQuery(strSql, celebId, callback);

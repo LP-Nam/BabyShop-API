@@ -39,6 +39,9 @@ router.get('/product/publisher/:publisherID', bookstore.findByPublisher);
 // lay san pham theo ma loai san pham
 router.get('/product/category/:categoryID', bookstore.findByCategory);
 
+// tim cac sach cung the loai
+router.post('/product/related', bookstore.findRelated);
+
 // // Update a celebrities with celebrityId
 // router.put('/celebrities/:celebrityId', bookstore.update);
 
