@@ -151,6 +151,19 @@ exports.findByCategory = function(req, res) {
     });
 };
 
+exports.findRelated = function(req, res) {
+    var id = req.body.MaSanPham;
+    var maloai = req.body.MaLoaiSanPham;
+
+    productModel.findRelated(id, maloai, function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.status(201).send(data);
+    });
+};
+
 // exports.update = function(req, res) {
 //     // Update a note identified by the noteId in the request
 //     var id = req.params.celebrityId;
