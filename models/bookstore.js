@@ -27,7 +27,43 @@ exports.findAllType = function (callback) {
         callback(err, data);
     });
 }
-
+exports.findAllOrderBill = function (callback) {
+    var strSql = "SELECT D.MaDonDatHang,D.MaTaiKhoan,D.MaTinhTrang,T.TenTinhTrang,D.NgayLap,D.TongThanhTien " +
+        " from dondathang D,tinhtrang T " +
+        " where D.MaTinhTrang = T.MaTinhTrang";
+    db.executeQuery(strSql, function (err, data) {
+        callback(err, data);
+    });
+}
+exports.findAllListBook = function (callback) {
+    var strSql = "select sp.BiXoa, sp.HinhURL, sp.MaSanPham,sp.TenSanPham,sp.TenTacGia,lsp.TenLoaiSanPham,hsx.TenHangSanXuat,sp.MaLoaiSanPham,sp.MaHangSanXuat,sp.GiaSanPham,sp.SoLuongTon " +
+        " from sanpham sp,hangsanxuat hsx,loaisanpham lsp" +
+        " where sp.MaHangSanXuat = hsx.MaHangSanXuat "+
+        " and sp.MaLoaiSanPham = lsp.MaLoaiSanPham";
+    db.executeQuery(strSql, function (err, data) {
+        callback(err, data);
+    });
+}
+exports.findAllListBookType = function (callback) {
+    var strSql = "select MaLoaiSanPham,TenLoaiSanPham,BiXoa from loaisanpham ";
+    db.executeQuery(strSql, function (err, data) {
+        callback(err, data);
+    });
+}
+exports.findAllListPublisher = function (callback) {
+    var strSql = "select MaHangSanXuat,TenHangSanXuat,BiXoa from hangsanxuat ";
+    db.executeQuery(strSql, function (err, data) {
+        callback(err, data);
+    });
+}
+exports.findAllListAccount = function (callback) {
+    var strSql = "select tk.MaTaiKhoan,tk.TenDangNhap,tk.MatKhau,tk.TenHienThi,tk.DiaChi,tk.DienThoai,tk.Email,ltk.TenLoaiTaiKhoan,tk.MaLoaiTaiKhoan,tk.BiXoa " +
+                " from taikhoan tk,loaitaikhoan ltk "+
+                " where tk.MaLoaiTaiKhoan = ltk.MaLoaiTaiKhoan";
+    db.executeQuery(strSql, function (err, data) {
+        callback(err, data);
+    });
+}
 exports.findAllBestSeller = function (callback) {
     var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
         "from sanpham sp " +

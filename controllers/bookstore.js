@@ -85,7 +85,51 @@ exports.findAllPublisher = function(req, res) {
         res.send(data);
     });
 };
-
+exports.findAllOrderBill = function(req, res) {
+    productModel.findAllOrderBill(function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+exports.findAllListBook = function(req, res) {
+    productModel.findAllListBook(function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+exports.findAllListBookType = function(req, res) {
+    productModel.findAllListBookType(function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+exports.findAllListPublisher = function(req, res) {
+    productModel.findAllListPublisher(function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+exports.findAllListAccount = function(req, res) {
+    productModel.findAllListAccount(function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
 exports.findAllType = function(req, res) {
     productModel.findAllType(function(err, data){
         if (err) {

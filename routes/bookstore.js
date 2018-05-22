@@ -39,6 +39,16 @@ router.get('/product/publisher/:publisherID', bookstore.findByPublisher);
 // lay san pham theo ma loai san pham
 router.get('/product/category/:categoryID', bookstore.findByCategory);
 
+//get all order bill in admin
+router.get('/admin/ListOrderBill', bookstore.findAllOrderBill);
+//get all list book in admin
+router.get('/admin/ListBook', bookstore.findAllListBook);
+//get all list book type in admin
+router.get('/admin/ListBookType', bookstore.findAllListBookType);
+//get all list publisher in admin
+router.get('/admin/ListPublisher', bookstore.findAllListPublisher);
+//get all list account in admin
+router.get('/admin/ListAccount', bookstore.findAllListAccount);
 // // Update a celebrities with celebrityId
 // router.put('/celebrities/:celebrityId', bookstore.update);
 
