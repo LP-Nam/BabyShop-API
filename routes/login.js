@@ -37,14 +37,16 @@ jwtOptions.secretOrKey = 'luanpham';
 var strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
     console.log('payload received', jwt_payload);
     //usually this would be a database call:
-    var user = users[_.findIndex(users, { MaTaiKhoan: jwt_payload.id })];
+    var user = users[_.findIndex(users, { MaTaiKhoan: jwt_payload.MaTaiKhoan })];
     if (user) {
         next(null, user);
+        //do something 
+        
     } else {
         next(null, false);
     }
+    
 });
-
 passport.use(strategy);
 
 router.post("/", function (req, res) {
@@ -62,7 +64,11 @@ router.post("/", function (req, res) {
 
     if (user.MatKhau === req.body.password) {
         // from now on we'll identify the user by the id and the id is the only personalized value that goes into our token
-        var payload = { id: user.MaTaiKhoan };
+        var payload = { 
+            MaTaiKhoan: user.MaTaiKhoan,
+            LoaiTaiKhoan: user.MaLoaiTaiKhoan,
+            TenHienThi: user.TenHienThi
+        };
         var token = jwt.sign(payload, jwtOptions.secretOrKey);
         res.json({ message: "ok", token: token });
     } else {
