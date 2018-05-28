@@ -39,7 +39,7 @@ router.get('/product/publisher/:publisherID', bookstore.findByPublisher);
 // lay san pham theo ma loai san pham
 router.get('/product/category/:categoryID', bookstore.findByCategory);
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
 //get all order bill in admin
 router.get('/admin/ListOrderBill', bookstore.findAllOrderBill);
 //get all list book in admin
@@ -50,11 +50,16 @@ router.get('/admin/ListBookType', bookstore.findAllListBookType);
 router.get('/admin/ListPublisher', bookstore.findAllListPublisher);
 //get all list account in admin
 router.get('/admin/ListAccount', bookstore.findAllListAccount);
-=======
+
+//get one order bill
+router.post('/admin/UpdateOrderBill/:OrderBillID',bookstore.updateOrderBill);
+router.get('/admin/UpdateOrderBill/GetStatus',bookstore.getStatus);
+router.get('/admin/UpdateOrderBill/:OrderBillID',bookstore.findByOrderBill);
+// =======
 // tim cac sach cung the loai
 router.post('/product/related', bookstore.findRelated);
 
->>>>>>> f44df4811f01dd413c0640a398b92287ae7cb9cb
+// >>>>>>> f44df4811f01dd413c0640a398b92287ae7cb9cb
 // // Update a celebrities with celebrityId
 // router.put('/celebrities/:celebrityId', bookstore.update);
 

@@ -64,6 +64,12 @@ exports.findAllListAccount = function (callback) {
         callback(err, data);
     });
 }
+exports.getStatus = function (callback) {
+    var strSql = "select MaTinhTrang,TenTinhTrang from tinhtrang";
+    db.executeQuery(strSql, function (err, data) {
+        callback(err, data);
+    });
+}
 exports.findAllBestSeller = function (callback) {
     var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
         "from sanpham sp " +
@@ -99,6 +105,13 @@ exports.findByCategory = function (categoryID, callback) {
         "and sp.MaLoaiSanPham = ?";
     db.executeQuery(strSql, categoryID, callback);
 }
+exports.findByOrderBill = function (orderbillID, callback) {
+    var strSql = "SELECT d.MaDonDatHang,d.MaTaiKhoan,d.TongThanhTien,d.MaTinhTrang,t.TenTinhTrang,d.NgayLap " +
+        "from dondathang d,tinhtrang t " +
+        "where d.MaTinhTrang = t.MaTinhTrang " +
+        " and d.MaDonDatHang = ?";
+    db.executeQuery(strSql, orderbillID, callback);
+}
 
 exports.createPublisher = function (factory, callback) {
     var strSql = "INSERT INTO hangsanxuat set ?";
@@ -109,6 +122,16 @@ exports.createCategory = function (category, callback) {
     var strSql = "INSERT INTO loaisanpham set ?";
     db.executeQuery(strSql, category, callback);
 }
+exports.upateOrderBill = function (orderBill, callback) {
+    var strSql = "update dondathang "+
+                "set NgayLap =  '"+orderBill.NgayLap +"'"+ 
+                ", TongThanhTien =  "+orderBill.TongThanhTien + 
+                ", MaTaiKhoan =  "+orderBill.MaTaiKhoan +
+                ", MaTinhTrang =  "+orderBill.MaTinhTrang +
+                " where MaDonDatHang = "+orderBill.MaDonDatHang;
+    db.executeQuery(strSql, callback);
+}
+
 
 exports.createProduct = function (product, callback) {
     var strSql = "INSERT INTO sanpham set ?";

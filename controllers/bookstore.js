@@ -150,6 +150,41 @@ exports.findByCategory = function(req, res) {
         res.send(data);
     });
 };
+exports.findByOrderBill = function(req, res) {
+    var id = req.params.OrderBillID;
+    productModel.findByOrderBill(id, function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+exports.getStatus = function(req, res) {
+    productModel.getStatus(function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+exports.updateOrderBill = function(req, res) {
+    var orderbill={                                                                                                                                                                                                                                                 
+        MaDonDatHang: req.params.OrderBillID,
+        NgayLap: req.body.NgayLap,
+        MaTaiKhoan: req.body.MaTaiKhoan,
+        TongThanhTien: req.body.TongThanhTien,
+        MaTinhTrang: req.body.MaTinhTrang
+    }
+    productModel.upateOrderBill(orderbill,function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
 
 exports.findRelated = function(req, res) {
     var id = req.body.MaSanPham;
