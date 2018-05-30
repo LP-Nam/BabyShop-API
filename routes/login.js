@@ -66,7 +66,7 @@ router.post("/", function (req, res) {
         // from now on we'll identify the user by the id and the id is the only personalized value that goes into our token
         var payload = { 
             MaTaiKhoan: user.MaTaiKhoan,
-            LoaiTaiKhoan: user.MaLoaiTaiKhoan,
+            MaLoaiTaiKhoan: user.MaLoaiTaiKhoan,
             TenHienThi: user.TenHienThi
         };
         var token = jwt.sign(payload, jwtOptions.secretOrKey);
