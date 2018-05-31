@@ -47,7 +47,14 @@ router.get('/admin/ListBook', bookstore.findAllListBook);
 router.get('/admin/ListBookType', bookstore.findAllListBookType);
 //get all list publisher in admin
 router.get('/admin/ListPublisher', bookstore.findAllListPublisher);
-//get all list account in admin
+
+router.get('/admin/UpdateOrderBill/getStatus',bookstore.getStatus);
+
+router.get('/admin/UpdateOrderBill/:OrderBillID',bookstore.findByOrderBill);
+
+router.post('/admin/UpdateOrderBill/:OrderBillID',bookstore.updateOrderBill);
+
+
 router.get('/admin/ListAccount', bookstore.findAllListAccount);
 // tim cac sach cung the loai
 router.post('/product/related', bookstore.findRelated);
