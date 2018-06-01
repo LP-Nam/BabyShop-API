@@ -40,8 +40,6 @@ var strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
     var user = users[_.findIndex(users, { MaTaiKhoan: jwt_payload.MaTaiKhoan })];
     if (user) {
         next(null, user);
-        //do something 
-        
     } else {
         next(null, false);
     }
@@ -69,7 +67,7 @@ router.post("/", function (req, res) {
             MaLoaiTaiKhoan: user.MaLoaiTaiKhoan,
             TenHienThi: user.TenHienThi
         };
-        var token = jwt.sign(payload, jwtOptions.secretOrKey);
+        var token = jwt.sign(payload, jwtOptions.secretOrKey,{expiresIn: '30s'});
         res.json({ message: "ok", token: token });
     } else {
         res.status(401).json({ message: "passwords did not match" });

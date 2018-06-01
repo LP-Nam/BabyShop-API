@@ -13,3 +13,5 @@
     * POST ***/api/product/publisher*** thêm mới 1 hãng sản xuất
     * POST ***/api/product/category*** thêm mới 1 loại sản phẩm
     * POST ***/api/product*** thêm mới 1 sản phẩm
+    * POST ***/api/register*** thêm 1 tài khoản mới
+    * POST ***/api/checkUsername*** kiểm tra tài khoản có tồn tại

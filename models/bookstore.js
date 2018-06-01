@@ -38,7 +38,7 @@ exports.findAllOrderBill = function (callback) {
 exports.findAllListBook = function (callback) {
     var strSql = "select sp.BiXoa, sp.HinhURL, sp.MaSanPham,sp.TenSanPham,sp.TenTacGia,lsp.TenLoaiSanPham,hsx.TenHangSanXuat,sp.MaLoaiSanPham,sp.MaHangSanXuat,sp.GiaSanPham,sp.SoLuongTon " +
         " from sanpham sp,hangsanxuat hsx,loaisanpham lsp" +
-        " where sp.MaHangSanXuat = hsx.MaHangSanXuat "+
+        " where sp.MaHangSanXuat = hsx.MaHangSanXuat " +
         " and sp.MaLoaiSanPham = lsp.MaLoaiSanPham";
     db.executeQuery(strSql, function (err, data) {
         callback(err, data);
@@ -58,8 +58,8 @@ exports.findAllListPublisher = function (callback) {
 }
 exports.findAllListAccount = function (callback) {
     var strSql = "select tk.MaTaiKhoan,tk.TenDangNhap,tk.MatKhau,tk.TenHienThi,tk.DiaChi,tk.DienThoai,tk.Email,ltk.TenLoaiTaiKhoan,tk.MaLoaiTaiKhoan,tk.BiXoa " +
-                " from taikhoan tk,loaitaikhoan ltk "+
-                " where tk.MaLoaiTaiKhoan = ltk.MaLoaiTaiKhoan";
+        " from taikhoan tk,loaitaikhoan ltk " +
+        " where tk.MaLoaiTaiKhoan = ltk.MaLoaiTaiKhoan";
     db.executeQuery(strSql, function (err, data) {
         callback(err, data);
     });
@@ -88,6 +88,12 @@ exports.findOne = function (productID, callback) {
         "and sp.MaHangSanXuat = hsx.MaHangSanXuat " +
         "and sp.MaSanPham = ?";
     db.executeQuery(strSql, productID, callback);
+}
+
+//kiem tra tai khoan ton tai //return 1 neu ton tai
+exports.checkUsername = function (un, callback) {
+    var strSql = "select count(*) as sl from taikhoan where TenDangNhap=?";
+    db.executeQuery(strSql, un, callback);
 }
 
 exports.findByPublisher = function (publisherID, callback) {
@@ -123,12 +129,12 @@ exports.createCategory = function (category, callback) {
     db.executeQuery(strSql, category, callback);
 }
 exports.upateOrderBill = function (orderBill, callback) {
-    var strSql = "update dondathang "+
-                "set NgayLap =  '"+orderBill.NgayLap +"'"+ 
-                ", TongThanhTien =  "+orderBill.TongThanhTien + 
-                ", MaTaiKhoan =  "+orderBill.MaTaiKhoan +
-                ", MaTinhTrang =  "+orderBill.MaTinhTrang +
-                " where MaDonDatHang = "+orderBill.MaDonDatHang;
+    var strSql = "update dondathang " +
+        "set NgayLap =  '" + orderBill.NgayLap + "'" +
+        ", TongThanhTien =  " + orderBill.TongThanhTien +
+        ", MaTaiKhoan =  " + orderBill.MaTaiKhoan +
+        ", MaTinhTrang =  " + orderBill.MaTinhTrang +
+        " where MaDonDatHang = " + orderBill.MaDonDatHang;
     db.executeQuery(strSql, callback);
 }
 
@@ -156,6 +162,12 @@ exports.findAllAccount = function (callback) {
         "where tk.BiXoa=false";
 
     db.executeQuery(sql, callback);
+}
+
+exports.register = function (account, callback) {
+    var strSql = "INSERT INTO taikhoan(TenDangNhap,MatKhau,TenHienThi,DiaChi,DienThoai,Email,BiXoa,MaLoaiTaiKhoan) " +
+        "values (?,?,?,?,?,?,0,1)";
+    db.executeQuery(strSql, [account.TenDangNhap, account.MatKhau, account.TenHienThi, account.DiaChi, account.DienThoai, account.Email], callback);
 }
 
 // exports.delete = function(celebId, callback){

@@ -30,6 +30,16 @@ exports.createProduct = function(req, res) {
     });
 };
 
+// them 1 tai khoan
+exports.register = function(req, res) {
+    productModel.register(req.body, function (err,data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.status(201).send();
+    });
+};
 
 
 exports.findAllNew = function(req, res) {
@@ -58,6 +68,18 @@ exports.findOne = function(req, res) {
     // Find a single note with a noteId
     var id = req.params.productID;
     productModel.findOne(id, function(err, data){
+        if(err){
+            res.status(400).send(err);
+            return;
+        }
+        res.status(201).send(data);
+    });
+};
+
+//kiem tra tai khoan ton tai
+exports.checkUsername = function(req, res) {
+    var un = req.params.username;
+    productModel.checkUsername(un, function(err, data){
         if(err){
             res.status(400).send(err);
             return;

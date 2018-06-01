@@ -33,6 +33,9 @@ router.get('/product/best-seller', bookstore.findAllBestSeller);
 // Retrieve a single product with id
 router.get('/product/:productID', bookstore.findOne);
 
+// kiem tra tai khoan ton tai
+router.get('/checkUsername/:username', bookstore.checkUsername);
+
 // lay san pham theo ma nha xuat ban
 router.get('/product/publisher/:publisherID', bookstore.findByPublisher);
 
@@ -58,6 +61,11 @@ router.post('/admin/UpdateOrderBill/:OrderBillID',bookstore.updateOrderBill);
 router.get('/admin/ListAccount', bookstore.findAllListAccount);
 // tim cac sach cung the loai
 router.post('/product/related', bookstore.findRelated);
+
+// them tai khoan moi
+router.post('/register', bookstore.register);
+
+
 
 // // Update a celebrities with celebrityId
 // router.put('/celebrities/:celebrityId', bookstore.update);

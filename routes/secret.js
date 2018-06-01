@@ -12,8 +12,10 @@ var passportJWT = require("passport-jwt");
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
 
+var bookstore = require('../controllers/bookstore');
+
 router.get("/", passport.authenticate('jwt', { session: false }), function (req, res) {
-    res.json("Success! You can not see this without a token");
+    res.json("success");
 });
 
 module.exports = router;
