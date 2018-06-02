@@ -1,6 +1,17 @@
 var express = require('express');
 var router = express.Router();
 
+var _ = require("lodash");
+var express = require("express");
+var bodyParser = require("body-parser");
+var jwt = require('jsonwebtoken');
+
+var passport = require("passport");
+var passportJWT = require("passport-jwt");
+
+var ExtractJwt = passportJWT.ExtractJwt;
+var JwtStrategy = passportJWT.Strategy;
+
 var bookstore = require('../controllers/bookstore');
 
 // // Create a new Note
@@ -43,22 +54,22 @@ router.get('/product/publisher/:publisherID', bookstore.findByPublisher);
 router.get('/product/category/:categoryID', bookstore.findByCategory);
 
 //get all order bill in admin
-router.get('/admin/ListOrderBill', bookstore.findAllOrderBill);
+router.get('/admin/ListOrderBill', passport.authenticate('jwt', { session: false }), bookstore.findAllOrderBill);
 //get all list book in admin
-router.get('/admin/ListBook', bookstore.findAllListBook);
+router.get('/admin/ListBook', passport.authenticate('jwt', { session: false }), bookstore.findAllListBook);
 //get all list book type in admin
-router.get('/admin/ListBookType', bookstore.findAllListBookType);
+router.get('/admin/ListBookType', passport.authenticate('jwt', { session: false }), bookstore.findAllListBookType);
 //get all list publisher in admin
-router.get('/admin/ListPublisher', bookstore.findAllListPublisher);
+router.get('/admin/ListPublisher', passport.authenticate('jwt', { session: false }), bookstore.findAllListPublisher);
 
-router.get('/admin/UpdateOrderBill/getStatus',bookstore.getStatus);
+router.get('/admin/UpdateOrderBill/getStatus', bookstore.getStatus);
 
-router.get('/admin/UpdateOrderBill/:OrderBillID',bookstore.findByOrderBill);
+router.get('/admin/UpdateOrderBill/:OrderBillID', bookstore.findByOrderBill);
 
-router.post('/admin/UpdateOrderBill/:OrderBillID',bookstore.updateOrderBill);
+router.post('/admin/UpdateOrderBill/:OrderBillID', bookstore.updateOrderBill);
 
 
-router.get('/admin/ListAccount', bookstore.findAllListAccount);
+router.get('/admin/ListAccount', passport.authenticate('jwt', { session: false }), bookstore.findAllListAccount);
 // tim cac sach cung the loai
 router.post('/product/related', bookstore.findRelated);
 

@@ -8,6 +8,7 @@
     * GET ***/api/product/category/:categoryID*** lấy danh sách sản phẩm theo loại sản phẩm
     * GET ***/api/product/publisher*** tìm các nhà xuất bản
     * GET ***/api/product/type*** tìm các thể loại
+    * GET ***/api/checkUsername/:username*** kiểm tra tài khoản có tồn tại
 
     * POST ***/api/product/related*** tìm các thể loại theo mã sách
     * POST ***/api/product/publisher*** thêm mới 1 hãng sản xuất

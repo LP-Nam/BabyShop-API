@@ -16,7 +16,7 @@ var JwtStrategy = passportJWT.Strategy;
 
 
 
-loadUser=()=>{
+loadUser = () => {
     productModel.findAllAccount(function (err, data) {
         if (err) {
             users = [{}];
@@ -27,7 +27,7 @@ loadUser=()=>{
     });
 }
 
-var users=loadUser();
+var users = loadUser();
 
 
 var jwtOptions = {}
@@ -35,15 +35,15 @@ jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = 'luanpham';
 
 var strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
-    console.log('payload received', jwt_payload);
+    let maloai = jwt_payload.MaLoaiTaiKhoan;
     //usually this would be a database call:
     var user = users[_.findIndex(users, { MaTaiKhoan: jwt_payload.MaTaiKhoan })];
-    if (user) {
+    if (user && maloai == 2) {
         next(null, user);
     } else {
         next(null, false);
     }
-    
+
 });
 passport.use(strategy);
 
@@ -62,12 +62,12 @@ router.post("/", function (req, res) {
 
     if (user.MatKhau === req.body.password) {
         // from now on we'll identify the user by the id and the id is the only personalized value that goes into our token
-        var payload = { 
+        var payload = {
             MaTaiKhoan: user.MaTaiKhoan,
             MaLoaiTaiKhoan: user.MaLoaiTaiKhoan,
             TenHienThi: user.TenHienThi
         };
-        var token = jwt.sign(payload, jwtOptions.secretOrKey,{expiresIn: '30s'});
+        var token = jwt.sign(payload, jwtOptions.secretOrKey, { expiresIn: '300s' });
         res.json({ message: "ok", token: token });
     } else {
         res.status(401).json({ message: "passwords did not match" });
