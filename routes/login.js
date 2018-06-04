@@ -54,6 +54,8 @@ router.post("/", function (req, res) {
     }
 
     // usually this would be a database call:
+    //users = loadUser();
+    loadUser();
     var user = users[_.findIndex(users, { TenDangNhap: username })];
 
     if (!user) {

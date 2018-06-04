@@ -170,6 +170,11 @@ exports.register = function (account, callback) {
     db.executeQuery(strSql, [account.TenDangNhap, account.MatKhau, account.TenHienThi, account.DiaChi, account.DienThoai, account.Email], callback);
 }
 
+exports.countBook = function (callback) {
+    var strSql = "select count(*) as SoLuong from sanpham where BiXoa=0";
+    db.executeQuery(strSql, callback);
+}
+
 // exports.delete = function(celebId, callback){
 //     var strSql = "delete from celebrities where id = ?";
 //     db.executeQuery(strSql, celebId, callback);

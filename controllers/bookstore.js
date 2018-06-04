@@ -221,6 +221,16 @@ exports.findRelated = function(req, res) {
     });
 };
 
+exports.countBook = function(req, res) {
+    productModel.countBook(function(err, data){
+        if(err){
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
 // exports.update = function(req, res) {
 //     // Update a note identified by the noteId in the request
 //     var id = req.params.celebrityId;

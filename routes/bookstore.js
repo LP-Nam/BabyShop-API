@@ -53,6 +53,9 @@ router.get('/product/publisher/:publisherID', bookstore.findByPublisher);
 // lay san pham theo ma loai san pham
 router.get('/product/category/:categoryID', bookstore.findByCategory);
 
+// lay so luong sach chua bi xoa
+router.get('/countProduct', bookstore.countBook);
+
 //get all order bill in admin
 router.get('/admin/ListOrderBill', passport.authenticate('jwt', { session: false }), bookstore.findAllOrderBill);
 //get all list book in admin
