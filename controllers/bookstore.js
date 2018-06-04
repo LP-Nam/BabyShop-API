@@ -98,6 +98,7 @@ exports.findByPublisher = function(req, res) {
         res.send(data);
     });
 };
+
 exports.findAllPublisher = function(req, res) {
     productModel.findAllPublisher(function(err, data){
         if (err) {
@@ -248,6 +249,42 @@ exports.findRelated = function(req, res) {
         res.status(201).send(data);
     });
 };
+
+exports.countBook = function(req, res) {
+    productModel.countBook(function(err, data){
+        if(err){
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.countBookbyPublisher = function(req, res) {
+    var id = req.params.publisherID;
+    productModel.countBookbyPublisher(id, function(err, data){
+        if(err){
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+
+/////// KHU VUC TEST
+exports.findByPublisherPaging = function(req, res) {
+    var id = req.body.publisherID;
+    var startPage = req.body.startPage;
+    productModel.findByPublisherPaging(id, startPage, function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
 
 // exports.update = function(req, res) {
 //     // Update a note identified by the noteId in the request

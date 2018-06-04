@@ -50,8 +50,14 @@ router.get('/checkUsername/:username', bookstore.checkUsername);
 // lay san pham theo ma nha xuat ban
 router.get('/product/publisher/:publisherID', bookstore.findByPublisher);
 
+// lấy số lượng sách theo nhà xuất bản
+router.get('/product/publisher/countAllBook/:publisherID', bookstore.countBookbyPublisher);
+
 // lay san pham theo ma loai san pham
 router.get('/product/category/:categoryID', bookstore.findByCategory);
+
+// lay so luong sach chua bi xoa
+router.get('/countProduct', bookstore.countBook);
 
 //get all order bill in admin
 router.get('/admin/ListOrderBill', passport.authenticate('jwt', { session: false }), bookstore.findAllOrderBill);
@@ -79,6 +85,12 @@ router.post('/register', bookstore.register);
 
 router.get('/admin/getType',bookstore.getType)
 router.get('/admin/getPublisher',bookstore.getPublisher)
+
+
+//// KHU VUC TEST
+// lay san pham theo ma nha xuat ban
+router.post('/product/publisherTestPaging', bookstore.findByPublisherPaging);
+
 
 
 // // Update a celebrities with celebrityId
