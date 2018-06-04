@@ -37,7 +37,7 @@ exports.register = function(req, res) {
             res.status(400).send(err);
             return;
         }
-        res.status(201).send();
+        res.status(201).send(data);
     });
 };
 
@@ -116,6 +116,24 @@ exports.findAllOrderBill = function(req, res) {
         res.send(data);
     });
 };
+exports.getType = function(req, res) {
+    productModel.getType(function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+exports.getPublisher = function(req, res) {
+    productModel.getPublisher(function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
 exports.findAllListBook = function(req, res) {
     productModel.findAllListBook(function(err, data){
         if (err) {
@@ -175,6 +193,16 @@ exports.findByCategory = function(req, res) {
 exports.findByOrderBill = function(req, res) {
     var id = req.params.OrderBillID;
     productModel.findByOrderBill(id, function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+exports.findByBook = function(req, res) {
+    var id = req.params.bookID;
+    productModel.findByBook(id, function(err, data){
         if (err) {
             res.status(400).send(err);
             return;

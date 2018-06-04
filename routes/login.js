@@ -46,7 +46,7 @@ var strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
 
 });
 passport.use(strategy);
-
+var users = loadUser();
 router.post("/", function (req, res) {
     if (req.body.username && req.body.password) {
         var username = req.body.username;

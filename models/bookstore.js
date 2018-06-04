@@ -44,6 +44,18 @@ exports.findAllListBook = function (callback) {
         callback(err, data);
     });
 }
+exports.getType = function (callback) {
+    var strSql = "select TenLoaiSanPham,MaLoaiSanPham from loaisanpham"
+    db.executeQuery(strSql, function (err, data) {
+        callback(err, data);
+    });
+}
+exports.getPublisher = function (callback) {
+    var strSql = "select TenHangSanXuat,MaHangSanXuat from hangsanxuat"
+    db.executeQuery(strSql, function (err, data) {
+        callback(err, data);
+    });
+}
 exports.findAllListBookType = function (callback) {
     var strSql = "select MaLoaiSanPham,TenLoaiSanPham,BiXoa from loaisanpham ";
     db.executeQuery(strSql, function (err, data) {
@@ -117,6 +129,13 @@ exports.findByOrderBill = function (orderbillID, callback) {
         "where d.MaTinhTrang = t.MaTinhTrang " +
         " and d.MaDonDatHang = ?";
     db.executeQuery(strSql, orderbillID, callback);
+}
+
+exports.findByBook = function (bookID, callback) {
+    var strSql = "select TenSanPham,TenTacGia,MaLoaiSanPham,MaHangSanXuat,GiaSanPham,MoTa,SoLuongTon,HinhURL  " +
+                "from sanpham  " +
+                "where MaSanPham = ?";
+    db.executeQuery(strSql, bookID, callback);
 }
 
 exports.createPublisher = function (factory, callback) {
