@@ -157,12 +157,31 @@ exports.upateOrderBill = function (orderBill, callback) {
     db.executeQuery(strSql, callback);
 }
 
+exports.updateBook = function (book, callback) {
+    var strSql = "update sanpham " +
+        "set TenSanPham =  '" + book.TenSanPham + "'" +
+        ", TenTacGia =  '" + book.TenTacGia + "'" +
+        ", MaLoaiSanPham =  " + book.MaLoaiSanPham +
+        ", MaHangSanXuat =  " + book.MaHangSanXuat +
+        ", GiaSanPham = " + book.GiaSanPham +
+        ", MoTa = '"+book.MoTa +"'"+
+        ", SoLuongTon = " + book.SoLuongTon +
+        ", HinhURL = '"+book.HinhURL +"'"+ 
+        " where MaSanPham = " + book.MaSanPham;
+    db.executeQuery(strSql, callback);
+}
+
 
 exports.createProduct = function (product, callback) {
     var strSql = "INSERT INTO sanpham set ?";
     db.executeQuery(strSql, product, callback);
 }
+exports.deleteBook = function(book,callback){
+    var strSql = "update sanpham set BiXoa = ? where MaSanPham = ?";
+    db.executeQuery(strSql, [book.BiXoa,book.MaSanPham], callback);
 
+db.executeQuery(sql, callback);
+}
 exports.findRelated = function (idBook, maLoai, callback) {
     var sql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
         "from sanpham sp " +

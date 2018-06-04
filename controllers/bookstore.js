@@ -236,6 +236,39 @@ exports.updateOrderBill = function(req, res) {
         res.send(data);
     });
 };
+exports.updateBook = function(req, res) {
+    var book={                                                                                                                                                                                                                                                 
+        MaSanPham: req.params.id,
+        TenSanPham: req.body.TenSanPham,
+        TenTacGia: req.body.TenTacGia,
+        MaLoaiSanPham: req.body.MaLoaiSanPham,
+        MaHangSanXuat: req.body.MaHangSanXuat,
+        GiaSanPham: req.body.GiaSanPham,
+        MoTa: req.body.MoTa,
+        SoLuongTon: req.body.SoLuongTon,
+        HinhURL: req.body.HinhURL
+    }
+    productModel.updateBook(book,function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+exports.deleteBook = function(req, res) {
+    var book={
+        MaSanPham: req.body.id,
+        BiXoa: req.body.BiXoa
+    }
+    productModel.deleteBook(book,function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
 
 exports.findRelated = function(req, res) {
     var id = req.body.MaSanPham;

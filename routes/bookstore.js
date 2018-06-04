@@ -74,7 +74,6 @@ router.get('/admin/UpdateOrderBill/:OrderBillID', bookstore.findByOrderBill);
 
 router.post('/admin/UpdateOrderBill/:OrderBillID', bookstore.updateOrderBill);
 
-router.get('/admin/findByBook/:bookID',bookstore.findByBook);
 
 router.get('/admin/ListAccount', passport.authenticate('jwt', { session: false }), bookstore.findAllListAccount);
 // tim cac sach cung the loai
@@ -83,10 +82,16 @@ router.post('/product/related', bookstore.findRelated);
 // them tai khoan moi
 router.post('/register', bookstore.register);
 
+//quản lý các sản phẩm
 router.get('/admin/getType',bookstore.getType)
+
 router.get('/admin/getPublisher',bookstore.getPublisher)
 
+router.put('/admin/UpdateBook/:id',bookstore.updateBook)
 
+router.delete('/admin/UpdateBook/:id',bookstore.deleteBook)
+
+router.get('/admin/findByBook/:bookID',bookstore.findByBook);
 //// KHU VUC TEST
 // lay san pham theo ma nha xuat ban
 router.post('/product/publisherTestPaging', bookstore.findByPublisherPaging);
