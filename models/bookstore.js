@@ -175,6 +175,28 @@ exports.countBook = function (callback) {
     db.executeQuery(strSql, callback);
 }
 
+exports.countBookbyPublisher = function (publisherID, callback) {
+    var strSql = "SELECT count(*) as SoLuong " +
+        "from sanpham sp " +
+        "where  sp.BiXoa = FALSE " +
+        "and sp.MaHangSanXuat = ?";
+    db.executeQuery(strSql, publisherID, callback);
+}
+
+
+
+/////// KHU VUC TEST
+exports.findByPublisherPaging = function (publisherID, startPage, callback) {
+    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
+        "from sanpham sp " +
+        "where  sp.BiXoa = FALSE " +
+        "and sp.MaHangSanXuat = ? " +
+        "LIMIT ?, 12";
+    db.executeQuery(strSql, [publisherID, startPage], callback);
+}
+
+
+
 // exports.delete = function(celebId, callback){
 //     var strSql = "delete from celebrities where id = ?";
 //     db.executeQuery(strSql, celebId, callback);

@@ -50,6 +50,9 @@ router.get('/checkUsername/:username', bookstore.checkUsername);
 // lay san pham theo ma nha xuat ban
 router.get('/product/publisher/:publisherID', bookstore.findByPublisher);
 
+// lấy số lượng sách theo nhà xuất bản
+router.get('/product/publisher/countAllBook/:publisherID', bookstore.countBookbyPublisher);
+
 // lay san pham theo ma loai san pham
 router.get('/product/category/:categoryID', bookstore.findByCategory);
 
@@ -78,6 +81,12 @@ router.post('/product/related', bookstore.findRelated);
 
 // them tai khoan moi
 router.post('/register', bookstore.register);
+
+
+
+//// KHU VUC TEST
+// lay san pham theo ma nha xuat ban
+router.post('/product/publisherTestPaging', bookstore.findByPublisherPaging);
 
 
 
