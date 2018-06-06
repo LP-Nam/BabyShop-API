@@ -85,6 +85,8 @@ router.post('/register', bookstore.register);
 //quản lý các sản phẩm
 router.get('/admin/getType',bookstore.getType)
 
+router.post('/admin/upadateBook/uploadImage',bookstore.uploadImage)
+
 router.get('/admin/getPublisher',bookstore.getPublisher)
 
 router.put('/admin/UpdateBook/:id',bookstore.updateBook)

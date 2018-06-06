@@ -1,5 +1,6 @@
 var productModel = require('../models/bookstore.js');
-
+var path = require('path');
+var fs = require('fs');
 exports.createPublisher = function(req, res) {
     productModel.createPublisher(req.body, function (err,data) {
         if (err) {
@@ -303,7 +304,26 @@ exports.countBookbyPublisher = function(req, res) {
         res.send(data);
     });
 };
-
+exports.uploadImage = function(req,res){
+  let imageFile = req.files.file
+  imageFile.mv(`${__dirname}/${imageFile.name}`, function(err) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    else{
+        return res.status(200);
+    }
+  });
+  var oldPath = `${__dirname}/${imageFile.name}`
+  var newPath = './public/images/Product/'+imageFile.name
+  fs.readFile(oldPath , function(err, data) {
+    fs.writeFile(newPath, data, function(err) {
+        fs.unlink(oldPath, function(){
+            if(err) throw err;
+        });
+    }); 
+}); 
+}
 
 /////// KHU VUC TEST
 exports.findByPublisherPaging = function(req, res) {
