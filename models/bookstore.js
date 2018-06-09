@@ -309,6 +309,11 @@ exports.countBookbyPublisher = function (publisherID, callback) {
     db.executeQuery(strSql, publisherID, callback);
 }
 
+exports.countComment = function (bookID, callback) {
+    var strSql = "select count(*) as SoLuong from binhluan where MaSanPham=?";
+    db.executeQuery(strSql, bookID, callback);
+}
+
 
 
 /////// KHU VUC TEST
