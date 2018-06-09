@@ -46,7 +46,7 @@ var strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
 
 });
 passport.use(strategy);
-var users = loadUser();
+var users = loadUser()
 router.post("/", function (req, res) {
     if (req.body.username && req.body.password) {
         var username = req.body.username;
@@ -67,7 +67,8 @@ router.post("/", function (req, res) {
         var payload = {
             MaTaiKhoan: user.MaTaiKhoan,
             MaLoaiTaiKhoan: user.MaLoaiTaiKhoan,
-            TenHienThi: user.TenHienThi
+            TenHienThi: user.TenHienThi,
+            TenDangNhap: user.TenDangNhap
         };
         var token = jwt.sign(payload, jwtOptions.secretOrKey, { expiresIn: '300s' });
         res.json({ message: "ok", token: token });

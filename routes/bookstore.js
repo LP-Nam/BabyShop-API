@@ -59,33 +59,49 @@ router.get('/product/category/:categoryID', bookstore.findByCategory);
 // lay so luong sach chua bi xoa
 router.get('/countProduct', bookstore.countBook);
 
-//get all order bill in admin
+//get list
 router.get('/admin/ListOrderBill', passport.authenticate('jwt', { session: false }), bookstore.findAllOrderBill);
-//get all list book in admin
+
 router.get('/admin/ListBook', passport.authenticate('jwt', { session: false }), bookstore.findAllListBook);
-//get all list book type in admin
+
 router.get('/admin/ListBookType', passport.authenticate('jwt', { session: false }), bookstore.findAllListBookType);
-//get all list publisher in admin
 router.get('/admin/ListPublisher', passport.authenticate('jwt', { session: false }), bookstore.findAllListPublisher);
 
+//upate orbill
 router.get('/admin/UpdateOrderBill/getStatus', bookstore.getStatus);
 
 router.get('/admin/UpdateOrderBill/:OrderBillID', bookstore.findByOrderBill);
 
 router.post('/admin/UpdateOrderBill/:OrderBillID', bookstore.updateOrderBill);
 
-
 router.get('/admin/ListAccount', passport.authenticate('jwt', { session: false }), bookstore.findAllListAccount);
 // tim cac sach cung the loai
 router.post('/product/related', bookstore.findRelated);
 
+//update account 
+router.delete('/admin/UpdateAccount/:id',bookstore.deleteAccount);
+router.get('/admin/findByAccount/:id',bookstore.findByAccount);
+router.get('/admin/getAccountType',bookstore.getAccountType);
+router.post('/admin/UpdateAccount/:id',bookstore.updateAccount);
+//update publisher
+router.get('/admin/findByPublisherAdmin/:id',bookstore.findByPublisherAdmin);
+router.delete('/admin/UpdatePublisher/:id',bookstore.deletePublisher);
+router.put('/admin/UpdatePublisher/:id',bookstore.updatePublisher);
+router.post('/admin/addPublisher',bookstore.addPublisher)
+
+//update book type
+router.delete('/admin/UpdateBookType/:id',bookstore.deleteBookType);
+router.get('/admin/findByBookType/:id',bookstore.findByBookType);
+router.put('/admin/UpdateBookType/:id',bookstore.updateBookType);
+router.post('/admin/addBookType',bookstore.addBookType)
+
 // them tai khoan moi
 router.post('/register', bookstore.register);
 
-//quản lý các sản phẩm
+//update book
 router.get('/admin/getType',bookstore.getType)
 
-router.post('/admin/upadateBook/uploadImage',bookstore.uploadImage)
+router.post('/admin/uploadImage',bookstore.uploadImage)
 
 router.get('/admin/getPublisher',bookstore.getPublisher)
 
@@ -94,6 +110,9 @@ router.put('/admin/UpdateBook/:id',bookstore.updateBook)
 router.delete('/admin/UpdateBook/:id',bookstore.deleteBook)
 
 router.get('/admin/findByBook/:bookID',bookstore.findByBook);
+
+//
+router.post('/admin/addBook',bookstore.addBook)
 //// KHU VUC TEST
 // lay san pham theo ma nha xuat ban
 router.post('/product/publisherTestPaging', bookstore.findByPublisherPaging);

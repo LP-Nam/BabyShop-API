@@ -27,19 +27,28 @@ exports.findAllType = function (callback) {
         callback(err, data);
     });
 }
-exports.findAllOrderBill = function (callback) {
+exports.findAllOrderBill = function (dateSearch,callback) {
+    
     var strSql = "SELECT D.MaDonDatHang,D.MaTaiKhoan,D.MaTinhTrang,T.TenTinhTrang,D.NgayLap,D.TongThanhTien " +
         " from dondathang D,tinhtrang T " +
         " where D.MaTinhTrang = T.MaTinhTrang";
+    if(dateSearch != "")
+    {
+        strSql += " and D.NgayLap like '"+dateSearch +"%'"
+    }
     db.executeQuery(strSql, function (err, data) {
         callback(err, data);
     });
 }
-exports.findAllListBook = function (callback) {
+exports.findAllListBook = function (bookname,callback) {
     var strSql = "select sp.BiXoa, sp.HinhURL, sp.MaSanPham,sp.TenSanPham,sp.TenTacGia,lsp.TenLoaiSanPham,hsx.TenHangSanXuat,sp.MaLoaiSanPham,sp.MaHangSanXuat,sp.GiaSanPham,sp.SoLuongTon " +
         " from sanpham sp,hangsanxuat hsx,loaisanpham lsp" +
         " where sp.MaHangSanXuat = hsx.MaHangSanXuat " +
         " and sp.MaLoaiSanPham = lsp.MaLoaiSanPham";
+    if(bookname != "")
+    {
+        strSql += " and sp.TenSanPham like '%"+bookname+"%'";
+    }
     db.executeQuery(strSql, function (err, data) {
         callback(err, data);
     });
@@ -56,22 +65,34 @@ exports.getPublisher = function (callback) {
         callback(err, data);
     });
 }
-exports.findAllListBookType = function (callback) {
+exports.findAllListBookType = function (booktypename,callback) {
     var strSql = "select MaLoaiSanPham,TenLoaiSanPham,BiXoa from loaisanpham ";
+    if(booktypename != "")
+    {
+        strSql += " where TenLoaiSanPham like '%"+booktypename+"%'"
+    }
     db.executeQuery(strSql, function (err, data) {
         callback(err, data);
     });
 }
-exports.findAllListPublisher = function (callback) {
+exports.findAllListPublisher = function (publishername,callback) {
     var strSql = "select MaHangSanXuat,TenHangSanXuat,BiXoa from hangsanxuat ";
+    if(publishername != "")
+    {
+        strSql += " where TenHangSanXuat like '%"+publishername+"%'"
+    }
     db.executeQuery(strSql, function (err, data) {
         callback(err, data);
     });
 }
-exports.findAllListAccount = function (callback) {
+exports.findAllListAccount = function (username,callback) {
     var strSql = "select tk.MaTaiKhoan,tk.TenDangNhap,tk.MatKhau,tk.TenHienThi,tk.DiaChi,tk.DienThoai,tk.Email,ltk.TenLoaiTaiKhoan,tk.MaLoaiTaiKhoan,tk.BiXoa " +
         " from taikhoan tk,loaitaikhoan ltk " +
         " where tk.MaLoaiTaiKhoan = ltk.MaLoaiTaiKhoan";
+    if(username != "")
+    {
+        strSql += " and tk.TenDangNhap like '%" + username + "%'"
+    }
     db.executeQuery(strSql, function (err, data) {
         callback(err, data);
     });
@@ -137,6 +158,10 @@ exports.findByBook = function (bookID, callback) {
                 "where MaSanPham = ?";
     db.executeQuery(strSql, bookID, callback);
 }
+exports.findByBookType = function (id, callback) {
+    var strSql = "select TenLoaiSanPham from loaisanpham where MaLoaiSanPham = ?";
+    db.executeQuery(strSql, id, callback);
+}
 
 exports.createPublisher = function (factory, callback) {
     var strSql = "INSERT INTO hangsanxuat set ?";
@@ -146,6 +171,22 @@ exports.createPublisher = function (factory, callback) {
 exports.createCategory = function (category, callback) {
     var strSql = "INSERT INTO loaisanpham set ?";
     db.executeQuery(strSql, category, callback);
+}
+
+exports.addBook = function (book, callback) {
+    var strSql = "INSERT INTO sanpham(TenSanPham,TenTacGia,MaLoaiSanPham,MaHangSanXuat,GiaSanPham,MoTa,SoLuongTon,HinhURL)"+
+                    "values(?,?,?,?,?,?,?,?)"
+    db.executeQuery(strSql, [book.TenSanPham,book.TenTacGia,book.MaLoaiSanPham,book.MaHangSanXuat,book.GiaSanPham,book.MoTa,book.SoLuongTon,book.HinhURL], callback);
+}
+exports.addBookType = function (book, callback) {
+    var strSql = "INSERT INTO loaisanpham(TenLoaiSanPham)"+
+                    "values(?)"
+    db.executeQuery(strSql, [book.TenLoaiSanPham], callback);
+}
+exports.addPublisher = function (book, callback) {
+    var strSql = "INSERT INTO hangsanxuat(TenHangSanXuat)"+
+                    "values(?)"
+    db.executeQuery(strSql, [book.TenHangSanXuat], callback);
 }
 exports.upateOrderBill = function (orderBill, callback) {
     var strSql = "update dondathang " +
@@ -170,8 +211,43 @@ exports.updateBook = function (book, callback) {
         " where MaSanPham = " + book.MaSanPham;
     db.executeQuery(strSql, callback);
 }
-
-
+exports.updateBookType = function (book, callback) {
+    var strSql = "update loaisanpham set TenLoaiSanPham = ? where MaLoaiSanPham = ?"
+    db.executeQuery(strSql,[book.TenLoaiSanPham,book.MaLoaiSanPham] ,callback);
+}
+exports.updatePublisher = function (book, callback) {
+    var strSql = "update hangsanXuat set TenHangSanXuat = ? where MaHangSanXuat = ?"
+    db.executeQuery(strSql,[book.TenHangSanXuat,book.MaHangSanXuat] ,callback);
+}
+exports.updateAccount = function (account, callback) {
+    var strSql = "update taikhoan "+
+                 " set TenHienThi = ?,"+
+                 " MaLoaiTaiKhoan = ?,"+
+                 " DienThoai = ?,"+
+                 " DiaChi = ?,"+
+                 " Email = ?"+
+                 " where MaTaiKhoan = ?"
+    db.executeQuery(strSql,[account.TenHienThi,account.MaLoaiTaiKhoan,account.DienThoai,account.DiaChi,account.Email,account.MaTaiKhoan] ,callback);
+}
+exports.findByBookType = function (id, callback) {
+    var strSql = "select TenLoaiSanPham from loaisanpham where MaLoaiSanPham = ?";
+    db.executeQuery(strSql, id, callback);
+}
+exports.findByPublisherAdmin = function (id, callback) {
+    var strSql = "select TenHangSanXuat from hangsanxuat where MaHangSanXuat = ?";
+    db.executeQuery(strSql, id, callback);
+}
+exports.findByAccount = function (id, callback) {
+    var strSql = "select tk.MaTaiKhoan,tk.TenDangNhap,tk.MatKhau,tk.TenHienThi,tk.DiaChi,tk.DienThoai,tk.Email,ltk.TenLoaiTaiKhoan,tk.MaLoaiTaiKhoan,tk.BiXoa"+
+                " from taikhoan tk,loaitaikhoan ltk" + 
+                " where tk.MaLoaiTaiKhoan = ltk.MaLoaiTaiKhoan" +
+                " and tk.MaTaiKhoan = ?";
+    db.executeQuery(strSql, id, callback);
+}
+exports.getAccountType = function (callback) {
+    var strSql = "select MaLoaiTaiKhoan,TenLoaiTaiKhoan from loaitaikhoan";
+    db.executeQuery(strSql, callback);
+}
 exports.createProduct = function (product, callback) {
     var strSql = "INSERT INTO sanpham set ?";
     db.executeQuery(strSql, product, callback);
@@ -179,9 +255,21 @@ exports.createProduct = function (product, callback) {
 exports.deleteBook = function(book,callback){
     var strSql = "update sanpham set BiXoa = ? where MaSanPham = ?";
     db.executeQuery(strSql, [book.BiXoa,book.MaSanPham], callback);
-
-db.executeQuery(sql, callback);
 }
+
+exports.deleteBookType = function(book,callback){
+    var strSql = "update loaisanpham set BiXoa = ? where MaLoaiSanPham = ?";
+    db.executeQuery(strSql, [book.BiXoa,book.MaLoaiSanPham], callback);
+}
+exports.deletePublisher = function(book,callback){
+    var strSql = "update hangsanxuat set BiXoa = ? where MaHangSanXuat = ?";
+    db.executeQuery(strSql, [book.BiXoa,book.MaHangSanXuat], callback);
+}
+exports.deleteAccount = function(account,callback){
+    var strSql = "update taikhoan set BiXoa = ? where MaTaiKhoan = ?";
+    db.executeQuery(strSql, [account.BiXoa,account.MaTaiKhoan], callback);
+}
+
 exports.findRelated = function (idBook, maLoai, callback) {
     var sql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
         "from sanpham sp " +
