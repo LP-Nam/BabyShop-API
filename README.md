@@ -9,6 +9,7 @@
     * GET ***/api/product/publisher*** tìm các nhà xuất bản
     * GET ***/api/product/type*** tìm các thể loại
     * GET ***/api/checkUsername/:username*** kiểm tra tài khoản có tồn tại
+    * GET ***/api/comment/product/:idProduct*** lấy số lượng comment thuộc sách đó
 
     * GET ***/api/countProduct*** số lượng sách chưa bị xóa
     * GET ***/api/product/publisher/countAllBook/:publisherID*** lấy số lượng sách theo nhà xuất bản

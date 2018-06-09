@@ -212,6 +212,18 @@ exports.findByBook = function(req, res) {
         res.send(data);
     });
 };
+
+exports.countComment = function(req, res) {
+    var id = req.params.idProduct;
+    productModel.countComment(id, function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
 exports.getStatus = function(req, res) {
     productModel.getStatus(function(err, data){
         if (err) {
