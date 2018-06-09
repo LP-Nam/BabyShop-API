@@ -102,7 +102,6 @@ router.get('/comment/product/:idProduct',bookstore.countComment);
 router.post('/product/publisherTestPaging', bookstore.findByPublisherPaging);
 
 
-
 // // Update a celebrities with celebrityId
 // router.put('/celebrities/:celebrityId', bookstore.update);
 
