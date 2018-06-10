@@ -177,6 +177,23 @@ exports.findAllListAccount = function(req, res) {
         res.send(data);
     });
 };
+exports.searchResult = function(req, res) {
+    var object = {
+         TenSanPham : req.query.TenSach,
+         GiaTu : req.query.GiaTu,
+         GiaDen : req.query.GiaDen,
+         MaLoaiSanPham: req.query.MaLoaiSanPham,
+         MaHangSanXuat: req.query.MaHangSanXuat,
+         TenTacGia: req.query.TenTacGia      
+    }
+    productModel.searchResult(object,function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
 exports.findAllType = function(req, res) {
     productModel.findAllType(function(err, data){
         if (err) {
@@ -281,10 +298,26 @@ exports.updateOrderBill = function(req, res) {
         MaDonDatHang: req.params.OrderBillID,
         NgayLap: req.body.NgayLap,
         MaTaiKhoan: req.body.MaTaiKhoan,
+        TenHienThi: req.body.TenHienThi,
+        DiaChi: req.body.DiaChi,
         TongThanhTien: req.body.TongThanhTien,
         MaTinhTrang: req.body.MaTinhTrang
     }
     productModel.upateOrderBill(orderbill,function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+exports.updateAccountAdmin = function(req, res) {
+    var account={                                                                                                                                                                                                                                                 
+        MaTaiKhoan: req.body.MaTaiKhoan,
+        TenHienThi: req.body.TenHienThi,
+        DiaChi: req.body.DiaChi,
+    }
+    productModel.updateAccountAdmin(account,function(err, data){
         if (err) {
             res.status(400).send(err);
             return;

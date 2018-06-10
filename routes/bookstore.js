@@ -65,16 +65,21 @@ router.get('/admin/ListOrderBill', passport.authenticate('jwt', { session: false
 router.get('/admin/ListBook', passport.authenticate('jwt', { session: false }), bookstore.findAllListBook);
 
 router.get('/admin/ListBookType', passport.authenticate('jwt', { session: false }), bookstore.findAllListBookType);
+
 router.get('/admin/ListPublisher', passport.authenticate('jwt', { session: false }), bookstore.findAllListPublisher);
 
+router.get('/admin/getOrderbillDetail/:id',bookstore.getOrderbillDetail)
 //upate orbill
 router.get('/admin/UpdateOrderBill/getStatus', bookstore.getStatus);
 
 router.get('/admin/UpdateOrderBill/:OrderBillID', bookstore.findByOrderBill);
 
 router.post('/admin/UpdateOrderBill/:OrderBillID', bookstore.updateOrderBill);
+router.post('/admin/UpdateAccountAdmin', bookstore.updateAccountAdmin);
 
 router.get('/admin/ListAccount', passport.authenticate('jwt', { session: false }), bookstore.findAllListAccount);
+
+router.get('/searchResult',bookstore.searchResult)
 // tim cac sach cung the loai
 router.post('/product/related', bookstore.findRelated);
 
@@ -98,17 +103,14 @@ router.post('/admin/addBookType',bookstore.addBookType)
 // them tai khoan moi
 router.post('/register', bookstore.register);
 
-<<<<<<< HEAD
 //update book
 router.get('/admin/getType',bookstore.getType)
 
 router.post('/admin/uploadImage',bookstore.uploadImage)
-=======
 //quản lý các sản phẩm
 router.get('/admin/getType',bookstore.getType);
 
 router.post('/admin/upadateBook/uploadImage',bookstore.uploadImage);
->>>>>>> e7e0dff202c6822397f6a1075f7a6be5d296b78d
 
 router.get('/admin/getPublisher',bookstore.getPublisher);
 
@@ -118,13 +120,10 @@ router.delete('/admin/UpdateBook/:id',bookstore.deleteBook);
 
 router.get('/admin/findByBook/:bookID',bookstore.findByBook);
 
-<<<<<<< HEAD
 //
 router.post('/admin/addBook',bookstore.addBook)
-=======
 //lay so luong cmt thuoc sach do
-router.get('/comment/product/:idProduct',bookstore.countComment);
->>>>>>> e7e0dff202c6822397f6a1075f7a6be5d296b78d
+// router.get('/comment/product/:idProduct',bookstore.countComment);
 //// KHU VUC TEST
 // lay san pham theo ma nha xuat ban
 router.post('/product/publisherTestPaging', bookstore.findByPublisherPaging);
