@@ -119,6 +119,7 @@ exports.findAllOrderBill = function(req, res) {
         res.send(data);
     });
 };
+
 exports.getType = function(req, res) {
     productModel.getType(function(err, data){
         if (err) {
@@ -128,6 +129,7 @@ exports.getType = function(req, res) {
         res.send(data);
     });
 };
+
 exports.getPublisher = function(req, res) {
     productModel.getPublisher(function(err, data){
         if (err) {
@@ -137,6 +139,7 @@ exports.getPublisher = function(req, res) {
         res.send(data);
     });
 };
+
 exports.findAllListBook = function(req, res) {
     var bookname = req.query.bookname
     productModel.findAllListBook(bookname,function(err, data){
@@ -511,6 +514,50 @@ exports.findByPublisherPaging = function(req, res) {
     var id = req.body.publisherID;
     var startPage = req.body.startPage;
     productModel.findByPublisherPaging(id, startPage, function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.getOrderbillDetail = function(req, res) {
+    var id = req.params.id
+    productModel.getOrderbillDetail(id,function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.updateAccountAdmin = function(req, res) {
+    var account={                                                                                                                                                                                                                                                 
+        MaTaiKhoan: req.body.MaTaiKhoan,
+        TenHienThi: req.body.TenHienThi,
+        DiaChi: req.body.DiaChi,
+    }
+    productModel.updateAccountAdmin(account,function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.searchResult = function(req, res) {
+    var object = {
+         TenSanPham : req.query.TenSach,
+         GiaTu : req.query.GiaTu,
+         GiaDen : req.query.GiaDen,
+         MaLoaiSanPham: req.query.MaLoaiSanPham,
+         MaHangSanXuat: req.query.MaHangSanXuat,
+         TenTacGia: req.query.TenTacGia      
+    }
+    productModel.searchResult(object,function(err, data){
         if (err) {
             res.status(400).send(err);
             return;

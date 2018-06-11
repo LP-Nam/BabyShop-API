@@ -27,11 +27,10 @@ exports.findAllType = function (callback) {
         callback(err, data);
     });
 }
-exports.findAllOrderBill = function (dateSearch,callback) {
-    
-    var strSql = "SELECT D.MaDonDatHang,D.MaTaiKhoan,D.MaTinhTrang,T.TenTinhTrang,D.NgayLap,D.TongThanhTien " +
-        " from dondathang D,tinhtrang T " +
-        " where D.MaTinhTrang = T.MaTinhTrang";
+exports.findAllOrderBill = function (dateSearch,callback) {  
+    var strSql = "SELECT D.MaDonDatHang,D.MaTaiKhoan,D.MaTinhTrang,T.TenTinhTrang,D.NgayLap,D.TongThanhTien,TK.TenHienThi,TK.DiaChi " +
+        " from dondathang D,tinhtrang T ,taikhoan TK" +
+        " where D.MaTinhTrang = T.MaTinhTrang and TK.MaTaiKhoan = D.MaTaiKhoan";
     if(dateSearch != "")
     {
         strSql += " and D.NgayLap like '"+dateSearch +"%'"
@@ -97,9 +96,45 @@ exports.findAllListAccount = function (username,callback) {
         callback(err, data);
     });
 }
+exports.searchResult = function (object,callback) {
+    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL"+
+                " from sanpham sp,hangsanxuat hsx,loaisanpham LSP"+
+                " where  sp.BiXoa = FALSE "+
+                " and sp.MaLoaiSanPham = LSP.MaLoaiSanPham "+
+                " and hsx.MaHangSanXuat = sp.MaHangSanXuat"+
+                ` and sp.GiaSanPham BETWEEN ${object.GiaTu} and ${object.GiaDen}`;
+    if(object.TenSanPham!="")
+    {
+        strSql += ` and sp.TenSanPham like '%${object.TenSanPham}%'`
+    }
+    if(object.MaLoaiSanPham!="")
+    {
+        strSql += ` and LSP.MaLoaiSanPham = ${object.MaLoaiSanPham}`
+    }
+    if(object.MaHangSanXuat!="")
+    {
+        strSql += ` and hsx.MaHangSanXuat = ${object.MaHangSanXuat}`
+    }
+    if(object.TenTacGia !="")
+    {
+        strSql += ` and sp.TenTacGia like '%${object.TenTacGia}%'`
+    }
+    db.executeQuery(strSql, function (err, data) {
+        callback(err, data);
+    });
+}
 exports.getStatus = function (callback) {
     var strSql = "select MaTinhTrang,TenTinhTrang from tinhtrang";
     db.executeQuery(strSql, function (err, data) {
+        callback(err, data);
+    });
+}
+exports.getOrderbillDetail = function (id,callback) {
+    var strSql = "SELECT CT.MaSanPham,s.TenSanPham,s.TenTacGia,s.GiaSanPham,CT.SoLuong"+
+                " from chitietdondathang CT,sanpham s"+
+                " where s.MaSanPham = CT.MaSanPham"+
+                " and CT.MaDonDatHang = ?";
+    db.executeQuery(strSql,id, function (err, data) {
         callback(err, data);
     });
 }
@@ -145,9 +180,9 @@ exports.findByCategory = function (categoryID, callback) {
     db.executeQuery(strSql, categoryID, callback);
 }
 exports.findByOrderBill = function (orderbillID, callback) {
-    var strSql = "SELECT d.MaDonDatHang,d.MaTaiKhoan,d.TongThanhTien,d.MaTinhTrang,t.TenTinhTrang,d.NgayLap " +
-        "from dondathang d,tinhtrang t " +
-        "where d.MaTinhTrang = t.MaTinhTrang " +
+    var strSql = "SELECT d.MaDonDatHang,d.MaTaiKhoan,d.TongThanhTien,d.MaTinhTrang,t.TenTinhTrang,d.NgayLap,TK.TenHienThi,TK.DiaChi " +
+        "from dondathang d,tinhtrang t,taikhoan TK " +
+        "where d.MaTinhTrang = t.MaTinhTrang and TK.MaTaiKhoan = d.MaTaiKhoan " +
         " and d.MaDonDatHang = ?";
     db.executeQuery(strSql, orderbillID, callback);
 }
@@ -194,9 +229,18 @@ exports.upateOrderBill = function (orderBill, callback) {
         ", TongThanhTien =  " + orderBill.TongThanhTien +
         ", MaTaiKhoan =  " + orderBill.MaTaiKhoan +
         ", MaTinhTrang =  " + orderBill.MaTinhTrang +
-        " where MaDonDatHang = " + orderBill.MaDonDatHang;
+        " where MaDonDatHang = " + orderBill.MaDonDatHang 
     db.executeQuery(strSql, callback);
 }
+exports.updateAccountAdmin = function (account, callback) {
+    var strSql = 
+         " update taikhoan "+
+            " set TenHienThi = '"+ account.TenHienThi+"'"+
+            ", DiaChi = '"+account.DiaChi+"'"+
+            " where MaTaiKhoan = "+account.MaTaiKhoan
+    db.executeQuery(strSql, callback);
+}
+
 
 exports.updateBook = function (book, callback) {
     var strSql = "update sanpham " +
