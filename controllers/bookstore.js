@@ -91,7 +91,7 @@ exports.checkUsername = function(req, res) {
 
 exports.findByPublisher = function(req, res) {
     var id = req.params.publisherID;
-    productModel.findByPublisherAdmin(id, function(err, data){
+    productModel.findByPublisher(id, function(err, data){
         if (err) {
             res.status(400).send(err);
             return;
