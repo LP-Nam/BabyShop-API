@@ -68,7 +68,7 @@ router.get('/admin/ListBookType', passport.authenticate('jwt', { session: false 
 
 router.get('/admin/ListPublisher', passport.authenticate('jwt', { session: false }), bookstore.findAllListPublisher);
 
-router.get('/admin/getOrderbillDetail/:id',bookstore.getOrderbillDetail)
+router.get('/admin/getOrderbillDetail/:id',bookstore.getOrderbillDetail);
 //upate orbill
 router.get('/admin/UpdateOrderBill/getStatus', bookstore.getStatus);
 
@@ -104,7 +104,7 @@ router.post('/admin/addBookType',bookstore.addBookType)
 router.post('/register', bookstore.register);
 
 //update book
-router.get('/admin/getType',bookstore.getType)
+router.get('/admin/getType',bookstore.getType);
 
 router.post('/admin/uploadImage',bookstore.uploadImage)
 //quản lý các sản phẩm
@@ -123,6 +123,7 @@ router.get('/admin/findByBook/:bookID',bookstore.findByBook);
 //
 router.post('/admin/addBook',bookstore.addBook)
 //lay so luong cmt thuoc sach do
+router.get('/comment/product/:idProduct',bookstore.countComment);
 // router.get('/comment/product/:idProduct',bookstore.countComment);
 //// KHU VUC TEST
 // lay san pham theo ma nha xuat ban

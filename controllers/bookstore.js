@@ -91,7 +91,7 @@ exports.checkUsername = function(req, res) {
 
 exports.findByPublisher = function(req, res) {
     var id = req.params.publisherID;
-    productModel.findByPublisher(id, function(err, data){
+    productModel.findByPublisherAdmin(id, function(err, data){
         if (err) {
             res.status(400).send(err);
             return;
@@ -119,6 +119,7 @@ exports.findAllOrderBill = function(req, res) {
         res.send(data);
     });
 };
+
 exports.getType = function(req, res) {
     productModel.getType(function(err, data){
         if (err) {
@@ -128,6 +129,7 @@ exports.getType = function(req, res) {
         res.send(data);
     });
 };
+
 exports.getPublisher = function(req, res) {
     productModel.getPublisher(function(err, data){
         if (err) {
@@ -137,6 +139,7 @@ exports.getPublisher = function(req, res) {
         res.send(data);
     });
 };
+
 exports.findAllListBook = function(req, res) {
     var bookname = req.query.bookname
     productModel.findAllListBook(bookname,function(err, data){
@@ -170,23 +173,6 @@ exports.findAllListPublisher = function(req, res) {
 exports.findAllListAccount = function(req, res) {
     var username =req.query.username
     productModel.findAllListAccount(username,function(err, data){
-        if (err) {
-            res.status(400).send(err);
-            return;
-        }
-        res.send(data);
-    });
-};
-exports.searchResult = function(req, res) {
-    var object = {
-         TenSanPham : req.query.TenSach,
-         GiaTu : req.query.GiaTu,
-         GiaDen : req.query.GiaDen,
-         MaLoaiSanPham: req.query.MaLoaiSanPham,
-         MaHangSanXuat: req.query.MaHangSanXuat,
-         TenTacGia: req.query.TenTacGia      
-    }
-    productModel.searchResult(object,function(err, data){
         if (err) {
             res.status(400).send(err);
             return;
@@ -234,6 +220,7 @@ exports.findByBook = function(req, res) {
         res.send(data);
     });
 };
+
 exports.findByBookType = function(req, res) {
     var id = req.params.id;
     productModel.findByBookType(id, function(err, data){
@@ -265,7 +252,18 @@ exports.findByAccount = function(req, res) {
     });
 };
 exports.getAccountType = function(req, res) {
-    productModel.getAccountType( function(err, data){
+    productModel.getAccountType(function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.countComment = function(req, res) {
+    var id = req.params.idProduct;
+    productModel.countComment(id, function(err, data){
         if (err) {
             res.status(400).send(err);
             return;
@@ -283,41 +281,15 @@ exports.getStatus = function(req, res) {
         res.send(data);
     });
 };
-exports.getOrderbillDetail = function(req, res) {
-    var id = req.params.id
-    productModel.getOrderbillDetail(id,function(err, data){
-        if (err) {
-            res.status(400).send(err);
-            return;
-        }
-        res.send(data);
-    });
-};
 exports.updateOrderBill = function(req, res) {
     var orderbill={                                                                                                                                                                                                                                                 
         MaDonDatHang: req.params.OrderBillID,
         NgayLap: req.body.NgayLap,
         MaTaiKhoan: req.body.MaTaiKhoan,
-        TenHienThi: req.body.TenHienThi,
-        DiaChi: req.body.DiaChi,
         TongThanhTien: req.body.TongThanhTien,
         MaTinhTrang: req.body.MaTinhTrang
     }
     productModel.upateOrderBill(orderbill,function(err, data){
-        if (err) {
-            res.status(400).send(err);
-            return;
-        }
-        res.send(data);
-    });
-};
-exports.updateAccountAdmin = function(req, res) {
-    var account={                                                                                                                                                                                                                                                 
-        MaTaiKhoan: req.body.MaTaiKhoan,
-        TenHienThi: req.body.TenHienThi,
-        DiaChi: req.body.DiaChi,
-    }
-    productModel.updateAccountAdmin(account,function(err, data){
         if (err) {
             res.status(400).send(err);
             return;
@@ -542,6 +514,50 @@ exports.findByPublisherPaging = function(req, res) {
     var id = req.body.publisherID;
     var startPage = req.body.startPage;
     productModel.findByPublisherPaging(id, startPage, function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.getOrderbillDetail = function(req, res) {
+    var id = req.params.id
+    productModel.getOrderbillDetail(id,function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.updateAccountAdmin = function(req, res) {
+    var account={                                                                                                                                                                                                                                                 
+        MaTaiKhoan: req.body.MaTaiKhoan,
+        TenHienThi: req.body.TenHienThi,
+        DiaChi: req.body.DiaChi,
+    }
+    productModel.updateAccountAdmin(account,function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.searchResult = function(req, res) {
+    var object = {
+         TenSanPham : req.query.TenSach,
+         GiaTu : req.query.GiaTu,
+         GiaDen : req.query.GiaDen,
+         MaLoaiSanPham: req.query.MaLoaiSanPham,
+         MaHangSanXuat: req.query.MaHangSanXuat,
+         TenTacGia: req.query.TenTacGia      
+    }
+    productModel.searchResult(object,function(err, data){
         if (err) {
             res.status(400).send(err);
             return;
