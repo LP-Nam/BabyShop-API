@@ -217,7 +217,7 @@ exports.findByBook = function(req, res) {
         res.send(data);
     });
 };
-<<<<<<< HEAD
+
 exports.findByBookType = function(req, res) {
     var id = req.params.id;
     productModel.findByBookType(id, function(err, data){
@@ -249,13 +249,7 @@ exports.findByAccount = function(req, res) {
     });
 };
 exports.getAccountType = function(req, res) {
-    productModel.getAccountType( function(err, data){
-=======
-
-exports.countComment = function(req, res) {
-    var id = req.params.idProduct;
-    productModel.countComment(id, function(err, data){
->>>>>>> e7e0dff202c6822397f6a1075f7a6be5d296b78d
+    productModel.getAccountType(function(err, data){
         if (err) {
             res.status(400).send(err);
             return;
@@ -263,10 +257,18 @@ exports.countComment = function(req, res) {
         res.send(data);
     });
 };
-<<<<<<< HEAD
-=======
 
->>>>>>> e7e0dff202c6822397f6a1075f7a6be5d296b78d
+exports.countComment = function(req, res) {
+    var id = req.params.idProduct;
+    productModel.countComment(id, function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
 exports.getStatus = function(req, res) {
     productModel.getStatus(function(err, data){
         if (err) {

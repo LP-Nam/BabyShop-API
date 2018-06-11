@@ -98,17 +98,10 @@ router.post('/admin/addBookType',bookstore.addBookType)
 // them tai khoan moi
 router.post('/register', bookstore.register);
 
-<<<<<<< HEAD
-//update book
-router.get('/admin/getType',bookstore.getType)
-
-router.post('/admin/uploadImage',bookstore.uploadImage)
-=======
 //quản lý các sản phẩm
 router.get('/admin/getType',bookstore.getType);
 
 router.post('/admin/upadateBook/uploadImage',bookstore.uploadImage);
->>>>>>> e7e0dff202c6822397f6a1075f7a6be5d296b78d
 
 router.get('/admin/getPublisher',bookstore.getPublisher);
 
@@ -118,13 +111,10 @@ router.delete('/admin/UpdateBook/:id',bookstore.deleteBook);
 
 router.get('/admin/findByBook/:bookID',bookstore.findByBook);
 
-<<<<<<< HEAD
 //
 router.post('/admin/addBook',bookstore.addBook)
-=======
 //lay so luong cmt thuoc sach do
 router.get('/comment/product/:idProduct',bookstore.countComment);
->>>>>>> e7e0dff202c6822397f6a1075f7a6be5d296b78d
 //// KHU VUC TEST
 // lay san pham theo ma nha xuat ban
 router.post('/product/publisherTestPaging', bookstore.findByPublisherPaging);
