@@ -360,7 +360,6 @@ exports.updateAccount = function (req, res) {
         res.send(data);
     });
 };
-<<<<<<< HEAD
 exports.updateInfor = function(req, res) {
     var account={                                                                                                                                                                                                                                                 
         MaTaiKhoan: req.params.id,
@@ -379,10 +378,6 @@ exports.updateInfor = function(req, res) {
 };
 exports.addBook = function(req, res) {
     var book={                                                                                                                                                                                                                                                 
-=======
-exports.addBook = function (req, res) {
-    var book = {
->>>>>>> 2d18ca811295610578b87386d079d3cfeebbe897
         TenSanPham: req.body.TenSanPham,
         TenTacGia: req.body.TenTacGia,
         MaLoaiSanPham: req.body.MaLoaiSanPham,
@@ -568,7 +563,6 @@ exports.updateAccountAdmin = function (req, res) {
         res.send(data);
     });
 };
-<<<<<<< HEAD
 exports.changePassword = function(req, res) {
     var account={                                                                                                                                                                                                                                                 
         MaTaiKhoan: req.body.MaTaiKhoan,
@@ -582,11 +576,8 @@ exports.changePassword = function(req, res) {
         res.send(data);
     });
 };
-exports.searchResult = function(req, res) {
-=======
 
 exports.searchResult = function (req, res) {
->>>>>>> 2d18ca811295610578b87386d079d3cfeebbe897
     var object = {
         TenSanPham: req.query.TenSach,
         GiaTu: req.query.GiaTu,
@@ -652,6 +643,28 @@ exports.updateInventory = function (req, res) {
         SoLuong: req.body.SoLuong,
     };
     productModel.updateInventory(sp, function (err, data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.ListComment = function (req, res) {
+    var idbook=req.params.idProduct;
+    productModel.ListComment(idbook, function (err, data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.addComment = function (req, res) {
+    var cmt = req.body.cmt;
+    productModel.addComment(cmt, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;

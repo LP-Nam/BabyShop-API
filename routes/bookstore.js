@@ -144,6 +144,13 @@ router.post('/orderDetail/add', bookstore.addOrderDetail);
 //* POST ***/api/product/updateInventory*** cập nhật số lượng tồn sản phẩm
 router.post('/product/updateInventory', bookstore.updateInventory);
 
+//* GET ***/api/ListComment/:idProduct*** lấy các comment thuộc sách đó
+router.get('/comment/getList/:idProduct', bookstore.ListComment);
+
+//* POST ***/api/comment/*** thêm 1 comment
+router.post('/comment', bookstore.addComment);
+
+
 //// KHU VUC TEST
 // lay san pham theo ma nha xuat ban
 router.post('/product/publisherTestPaging', bookstore.findByPublisherPaging);

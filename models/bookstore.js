@@ -388,6 +388,16 @@ exports.updateInventory = function (sp, callback) {
     db.executeQuery(strSql, [sl, sp.MaSanPham], callback);
 }
 
+exports.ListComment = function (idbook, callback) {
+    var strSql = "select * from binhluan where MaSanPham=?"
+    db.executeQuery(strSql, idbook, callback);
+}
+
+exports.addComment = function (cmt, callback) {
+    var strSql = "insert into binhluan(TenHienThi,NoiDung,ThoiGian,MaSanPham) value(?,?,?,?)";
+    db.executeQuery(strSql, [cmt.TenHienThi, cmt.NoiDung, cmt.ThoiGian, cmt.MaSanPham], callback);
+}
+
 /////// KHU VUC TEST
 exports.findByPublisherPaging = function (publisherID, startPage, callback) {
     var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
