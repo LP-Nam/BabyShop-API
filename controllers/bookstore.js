@@ -360,6 +360,22 @@ exports.updateAccount = function(req, res) {
         res.send(data);
     });
 };
+exports.updateInfor = function(req, res) {
+    var account={                                                                                                                                                                                                                                                 
+        MaTaiKhoan: req.params.id,
+        TenHienThi: req.body.TenHienThi,
+        DienThoai: req.body.DienThoai,
+        DiaChi: req.body.DiaChi,
+        Email: req.body.Email
+    }
+    productModel.updateInfor(account,function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
 exports.addBook = function(req, res) {
     var book={                                                                                                                                                                                                                                                 
         TenSanPham: req.body.TenSanPham,
@@ -547,7 +563,19 @@ exports.updateAccountAdmin = function(req, res) {
         res.send(data);
     });
 };
-
+exports.changePassword = function(req, res) {
+    var account={                                                                                                                                                                                                                                                 
+        MaTaiKhoan: req.body.MaTaiKhoan,
+        MatKhau: req.body.MatKhau
+    }
+    productModel.changePassword(account,function(err, data){
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
 exports.searchResult = function(req, res) {
     var object = {
          TenSanPham : req.query.TenSach,

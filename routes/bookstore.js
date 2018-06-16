@@ -79,6 +79,12 @@ router.post('/admin/UpdateAccountAdmin', bookstore.updateAccountAdmin);
 
 router.get('/admin/ListAccount', passport.authenticate('jwt', { session: false }), bookstore.findAllListAccount);
 
+//doi mat khau
+router.post('/changePassword',bookstore.changePassword)
+
+//cap nhat thogn tin
+router.put('/UpdateInfor/:id',bookstore.updateInfor);
+
 router.get('/searchResult',bookstore.searchResult)
 // tim cac sach cung the loai
 router.post('/product/related', bookstore.findRelated);

@@ -240,6 +240,13 @@ exports.updateAccountAdmin = function (account, callback) {
             " where MaTaiKhoan = "+account.MaTaiKhoan
     db.executeQuery(strSql, callback);
 }
+exports.changePassword = function (account, callback) {
+    var strSql = 
+         " update taikhoan "+
+            " set  MatKhau = '"+account.MatKhau+"'"+
+            " where MaTaiKhoan = "+account.MaTaiKhoan
+    db.executeQuery(strSql, callback);
+}
 
 
 exports.updateBook = function (book, callback) {
@@ -272,6 +279,15 @@ exports.updateAccount = function (account, callback) {
                  " Email = ?"+
                  " where MaTaiKhoan = ?"
     db.executeQuery(strSql,[account.TenHienThi,account.MaLoaiTaiKhoan,account.DienThoai,account.DiaChi,account.Email,account.MaTaiKhoan] ,callback);
+}
+exports.updateInfor = function (account, callback) {
+    var strSql = "update taikhoan "+
+                 " set TenHienThi = ?,"+
+                 " DienThoai = ?,"+
+                 " DiaChi = ?,"+
+                 " Email = ?"+
+                 " where MaTaiKhoan = ?"
+    db.executeQuery(strSql,[account.TenHienThi,account.DienThoai,account.DiaChi,account.Email,account.MaTaiKhoan] ,callback);
 }
 exports.findByBookType = function (id, callback) {
     var strSql = "select TenLoaiSanPham from loaisanpham where MaLoaiSanPham = ?";
