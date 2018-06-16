@@ -131,6 +131,19 @@ router.post('/admin/addBook',bookstore.addBook)
 //lay so luong cmt thuoc sach do
 router.get('/comment/product/:idProduct',bookstore.countComment);
 // router.get('/comment/product/:idProduct',bookstore.countComment);
+
+//thêm đơn đặt hàng
+router.post('/order/add', bookstore.addOrder);
+
+//* GET ***/api/order/recentID*** lấy mã đơn đặt hàng vừa tạo
+router.get('/order/recentID', bookstore.recentIDorder);
+
+//* POST ***/api/orderDetail/add*** thêm chi tiết đơn đặt hàng
+router.post('/orderDetail/add', bookstore.addOrderDetail);
+
+//* POST ***/api/product/updateInventory*** cập nhật số lượng tồn sản phẩm
+router.post('/product/updateInventory', bookstore.updateInventory);
+
 //// KHU VUC TEST
 // lay san pham theo ma nha xuat ban
 router.post('/product/publisherTestPaging', bookstore.findByPublisherPaging);

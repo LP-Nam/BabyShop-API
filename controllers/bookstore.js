@@ -1,8 +1,8 @@
 var productModel = require('../models/bookstore.js');
 var path = require('path');
 var fs = require('fs');
-exports.createPublisher = function(req, res) {
-    productModel.createPublisher(req.body, function (err,data) {
+exports.createPublisher = function (req, res) {
+    productModel.createPublisher(req.body, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -11,8 +11,8 @@ exports.createPublisher = function(req, res) {
     });
 };
 
-exports.createCategory = function(req, res) {
-    productModel.createCategory(req.body, function (err,data) {
+exports.createCategory = function (req, res) {
+    productModel.createCategory(req.body, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -21,8 +21,8 @@ exports.createCategory = function(req, res) {
     });
 };
 
-exports.createProduct = function(req, res) {
-    productModel.createProduct(req.body, function (err,data) {
+exports.createProduct = function (req, res) {
+    productModel.createProduct(req.body, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -32,8 +32,8 @@ exports.createProduct = function(req, res) {
 };
 
 // them 1 tai khoan
-exports.register = function(req, res) {
-    productModel.register(req.body, function (err,data) {
+exports.register = function (req, res) {
+    productModel.register(req.body, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -43,9 +43,9 @@ exports.register = function(req, res) {
 };
 
 
-exports.findAllNew = function(req, res) {
+exports.findAllNew = function (req, res) {
     // Retrieve and return all notes from the database.
-    productModel.findAllNew(function(err, data){
+    productModel.findAllNew(function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -54,9 +54,9 @@ exports.findAllNew = function(req, res) {
     });
 };
 
-exports.findAllBestSeller = function(req, res) {
+exports.findAllBestSeller = function (req, res) {
     // Retrieve and return all notes from the database.
-    productModel.findAllBestSeller(function(err, data){
+    productModel.findAllBestSeller(function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -65,11 +65,11 @@ exports.findAllBestSeller = function(req, res) {
     });
 };
 
-exports.findOne = function(req, res) {
+exports.findOne = function (req, res) {
     // Find a single note with a noteId
     var id = req.params.productID;
-    productModel.findOne(id, function(err, data){
-        if(err){
+    productModel.findOne(id, function (err, data) {
+        if (err) {
             res.status(400).send(err);
             return;
         }
@@ -78,10 +78,10 @@ exports.findOne = function(req, res) {
 };
 
 //kiem tra tai khoan ton tai
-exports.checkUsername = function(req, res) {
+exports.checkUsername = function (req, res) {
     var un = req.params.username;
-    productModel.checkUsername(un, function(err, data){
-        if(err){
+    productModel.checkUsername(un, function (err, data) {
+        if (err) {
             res.status(400).send(err);
             return;
         }
@@ -89,9 +89,9 @@ exports.checkUsername = function(req, res) {
     });
 };
 
-exports.findByPublisher = function(req, res) {
+exports.findByPublisher = function (req, res) {
     var id = req.params.publisherID;
-    productModel.findByPublisher(id, function(err, data){
+    productModel.findByPublisher(id, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -100,8 +100,8 @@ exports.findByPublisher = function(req, res) {
     });
 };
 
-exports.findAllPublisher = function(req, res) {
-    productModel.findAllPublisher(function(err, data){
+exports.findAllPublisher = function (req, res) {
+    productModel.findAllPublisher(function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -109,19 +109,9 @@ exports.findAllPublisher = function(req, res) {
         res.send(data);
     });
 };
-exports.findAllOrderBill = function(req, res) {
-        var dateSearch = req.query.date
-    productModel.findAllOrderBill(dateSearch,function(err, data){
-        if (err) {
-            res.status(400).send(err);
-            return;
-        }
-        res.send(data);
-    });
-};
-
-exports.getType = function(req, res) {
-    productModel.getType(function(err, data){
+exports.findAllOrderBill = function (req, res) {
+    var dateSearch = req.query.date
+    productModel.findAllOrderBill(dateSearch, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -130,8 +120,8 @@ exports.getType = function(req, res) {
     });
 };
 
-exports.getPublisher = function(req, res) {
-    productModel.getPublisher(function(err, data){
+exports.getType = function (req, res) {
+    productModel.getType(function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -140,9 +130,19 @@ exports.getPublisher = function(req, res) {
     });
 };
 
-exports.findAllListBook = function(req, res) {
+exports.getPublisher = function (req, res) {
+    productModel.getPublisher(function (err, data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.findAllListBook = function (req, res) {
     var bookname = req.query.bookname
-    productModel.findAllListBook(bookname,function(err, data){
+    productModel.findAllListBook(bookname, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -150,9 +150,9 @@ exports.findAllListBook = function(req, res) {
         res.send(data);
     });
 };
-exports.findAllListBookType = function(req, res) {
+exports.findAllListBookType = function (req, res) {
     var booktypename = req.query.booktypename
-    productModel.findAllListBookType(booktypename,function(err, data){
+    productModel.findAllListBookType(booktypename, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -160,9 +160,9 @@ exports.findAllListBookType = function(req, res) {
         res.send(data);
     });
 };
-exports.findAllListPublisher = function(req, res) {
+exports.findAllListPublisher = function (req, res) {
     var publishername = req.query.publishername
-    productModel.findAllListPublisher(publishername,function(err, data){
+    productModel.findAllListPublisher(publishername, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -170,9 +170,9 @@ exports.findAllListPublisher = function(req, res) {
         res.send(data);
     });
 };
-exports.findAllListAccount = function(req, res) {
-    var username =req.query.username
-    productModel.findAllListAccount(username,function(err, data){
+exports.findAllListAccount = function (req, res) {
+    var username = req.query.username
+    productModel.findAllListAccount(username, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -180,8 +180,8 @@ exports.findAllListAccount = function(req, res) {
         res.send(data);
     });
 };
-exports.findAllType = function(req, res) {
-    productModel.findAllType(function(err, data){
+exports.findAllType = function (req, res) {
+    productModel.findAllType(function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -190,9 +190,9 @@ exports.findAllType = function(req, res) {
     });
 };
 
-exports.findByCategory = function(req, res) {
+exports.findByCategory = function (req, res) {
     var id = req.params.categoryID;
-    productModel.findByCategory(id, function(err, data){
+    productModel.findByCategory(id, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -200,9 +200,9 @@ exports.findByCategory = function(req, res) {
         res.send(data);
     });
 };
-exports.findByOrderBill = function(req, res) {
+exports.findByOrderBill = function (req, res) {
     var id = req.params.OrderBillID;
-    productModel.findByOrderBill(id, function(err, data){
+    productModel.findByOrderBill(id, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -210,9 +210,9 @@ exports.findByOrderBill = function(req, res) {
         res.send(data);
     });
 };
-exports.findByBook = function(req, res) {
+exports.findByBook = function (req, res) {
     var id = req.params.bookID;
-    productModel.findByBook(id, function(err, data){
+    productModel.findByBook(id, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -221,9 +221,9 @@ exports.findByBook = function(req, res) {
     });
 };
 
-exports.findByBookType = function(req, res) {
+exports.findByBookType = function (req, res) {
     var id = req.params.id;
-    productModel.findByBookType(id, function(err, data){
+    productModel.findByBookType(id, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -231,9 +231,9 @@ exports.findByBookType = function(req, res) {
         res.send(data);
     });
 };
-exports.findByPublisherAdmin = function(req, res) {
+exports.findByPublisherAdmin = function (req, res) {
     var id = req.params.id;
-    productModel.findByPublisherAdmin(id, function(err, data){
+    productModel.findByPublisherAdmin(id, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -241,9 +241,9 @@ exports.findByPublisherAdmin = function(req, res) {
         res.send(data);
     });
 };
-exports.findByAccount = function(req, res) {
+exports.findByAccount = function (req, res) {
     var id = req.params.id;
-    productModel.findByAccount(id, function(err, data){
+    productModel.findByAccount(id, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -251,8 +251,8 @@ exports.findByAccount = function(req, res) {
         res.send(data);
     });
 };
-exports.getAccountType = function(req, res) {
-    productModel.getAccountType(function(err, data){
+exports.getAccountType = function (req, res) {
+    productModel.getAccountType(function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -261,9 +261,9 @@ exports.getAccountType = function(req, res) {
     });
 };
 
-exports.countComment = function(req, res) {
+exports.countComment = function (req, res) {
     var id = req.params.idProduct;
-    productModel.countComment(id, function(err, data){
+    productModel.countComment(id, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -272,8 +272,8 @@ exports.countComment = function(req, res) {
     });
 };
 
-exports.getStatus = function(req, res) {
-    productModel.getStatus(function(err, data){
+exports.getStatus = function (req, res) {
+    productModel.getStatus(function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -281,15 +281,15 @@ exports.getStatus = function(req, res) {
         res.send(data);
     });
 };
-exports.updateOrderBill = function(req, res) {
-    var orderbill={                                                                                                                                                                                                                                                 
+exports.updateOrderBill = function (req, res) {
+    var orderbill = {
         MaDonDatHang: req.params.OrderBillID,
         NgayLap: req.body.NgayLap,
         MaTaiKhoan: req.body.MaTaiKhoan,
         TongThanhTien: req.body.TongThanhTien,
         MaTinhTrang: req.body.MaTinhTrang
     }
-    productModel.upateOrderBill(orderbill,function(err, data){
+    productModel.upateOrderBill(orderbill, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -297,8 +297,8 @@ exports.updateOrderBill = function(req, res) {
         res.send(data);
     });
 };
-exports.updateBook = function(req, res) {
-    var book={                                                                                                                                                                                                                                                 
+exports.updateBook = function (req, res) {
+    var book = {
         MaSanPham: req.params.id,
         TenSanPham: req.body.TenSanPham,
         TenTacGia: req.body.TenTacGia,
@@ -309,7 +309,7 @@ exports.updateBook = function(req, res) {
         SoLuongTon: req.body.SoLuongTon,
         HinhURL: req.body.HinhURL
     }
-    productModel.updateBook(book,function(err, data){
+    productModel.updateBook(book, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -317,12 +317,12 @@ exports.updateBook = function(req, res) {
         res.send(data);
     });
 };
-exports.updateBookType = function(req, res) {
-    var book={                                                                                                                                                                                                                                                 
+exports.updateBookType = function (req, res) {
+    var book = {
         MaLoaiSanPham: req.params.id,
         TenLoaiSanPham: req.body.TenLoaiSanPham
     }
-    productModel.updateBookType(book,function(err, data){
+    productModel.updateBookType(book, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -330,12 +330,12 @@ exports.updateBookType = function(req, res) {
         res.send(data);
     });
 };
-exports.updatePublisher = function(req, res) {
-    var book={                                                                                                                                                                                                                                                 
+exports.updatePublisher = function (req, res) {
+    var book = {
         MaHangSanXuat: req.params.id,
         TenHangSanXuat: req.body.TenHangSanXuat
     }
-    productModel.updatePublisher(book,function(err, data){
+    productModel.updatePublisher(book, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -343,8 +343,8 @@ exports.updatePublisher = function(req, res) {
         res.send(data);
     });
 };
-exports.updateAccount = function(req, res) {
-    var account={                                                                                                                                                                                                                                                 
+exports.updateAccount = function (req, res) {
+    var account = {
         MaTaiKhoan: req.params.id,
         TenHienThi: req.body.TenHienThi,
         MaLoaiTaiKhoan: req.body.MaLoaiTaiKhoan,
@@ -352,7 +352,7 @@ exports.updateAccount = function(req, res) {
         DiaChi: req.body.DiaChi,
         Email: req.body.Email
     }
-    productModel.updateAccount(account,function(err, data){
+    productModel.updateAccount(account, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -360,6 +360,7 @@ exports.updateAccount = function(req, res) {
         res.send(data);
     });
 };
+<<<<<<< HEAD
 exports.updateInfor = function(req, res) {
     var account={                                                                                                                                                                                                                                                 
         MaTaiKhoan: req.params.id,
@@ -378,6 +379,10 @@ exports.updateInfor = function(req, res) {
 };
 exports.addBook = function(req, res) {
     var book={                                                                                                                                                                                                                                                 
+=======
+exports.addBook = function (req, res) {
+    var book = {
+>>>>>>> 2d18ca811295610578b87386d079d3cfeebbe897
         TenSanPham: req.body.TenSanPham,
         TenTacGia: req.body.TenTacGia,
         MaLoaiSanPham: req.body.MaLoaiSanPham,
@@ -387,7 +392,7 @@ exports.addBook = function(req, res) {
         SoLuongTon: req.body.SoLuongTon,
         HinhURL: req.body.HinhURL
     }
-    productModel.addBook(book,function(err, data){
+    productModel.addBook(book, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -395,11 +400,11 @@ exports.addBook = function(req, res) {
         res.send(data);
     });
 };
-exports.addBookType = function(req, res) {
-    var book={                                                                                                                                                                                                                                                 
+exports.addBookType = function (req, res) {
+    var book = {
         TenLoaiSanPham: req.body.TenLoaiSanPham
     }
-    productModel.addBookType(book,function(err, data){
+    productModel.addBookType(book, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -407,11 +412,11 @@ exports.addBookType = function(req, res) {
         res.send(data);
     });
 };
-exports.addPublisher = function(req, res) {
-    var book={                                                                                                                                                                                                                                                 
+exports.addPublisher = function (req, res) {
+    var book = {
         TenHangSanXuat: req.body.TenHangSanXuat
     }
-    productModel.addPublisher(book,function(err, data){
+    productModel.addPublisher(book, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -419,12 +424,12 @@ exports.addPublisher = function(req, res) {
         res.send(data);
     });
 };
-exports.deleteBook = function(req, res) {
-    var book={
+exports.deleteBook = function (req, res) {
+    var book = {
         MaSanPham: req.params.id,
         BiXoa: req.body.BiXoa
     }
-    productModel.deleteBook(book,function(err, data){
+    productModel.deleteBook(book, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -432,12 +437,12 @@ exports.deleteBook = function(req, res) {
         res.send(data);
     });
 };
-exports.deleteBookType = function(req, res) {
-    var book={
+exports.deleteBookType = function (req, res) {
+    var book = {
         MaLoaiSanPham: req.params.id,
         BiXoa: req.body.BiXoa
     }
-    productModel.deleteBookType(book,function(err, data){
+    productModel.deleteBookType(book, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -445,12 +450,12 @@ exports.deleteBookType = function(req, res) {
         res.send(data);
     });
 };
-exports.deletePublisher = function(req, res) {
-    var book={
+exports.deletePublisher = function (req, res) {
+    var book = {
         MaHangSanXuat: req.params.id,
         BiXoa: req.body.BiXoa
     }
-    productModel.deletePublisher(book,function(err, data){
+    productModel.deletePublisher(book, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -458,12 +463,12 @@ exports.deletePublisher = function(req, res) {
         res.send(data);
     });
 };
-exports.deleteAccount = function(req, res) {
-    var account={
+exports.deleteAccount = function (req, res) {
+    var account = {
         MaTaiKhoan: req.params.id,
         BiXoa: req.body.BiXoa
     }
-    productModel.deleteAccount(account,function(err, data){
+    productModel.deleteAccount(account, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -472,11 +477,11 @@ exports.deleteAccount = function(req, res) {
     });
 };
 
-exports.findRelated = function(req, res) {
+exports.findRelated = function (req, res) {
     var id = req.body.MaSanPham;
     var maloai = req.body.MaLoaiSanPham;
 
-    productModel.findRelated(id, maloai, function(err, data){
+    productModel.findRelated(id, maloai, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -485,9 +490,9 @@ exports.findRelated = function(req, res) {
     });
 };
 
-exports.countBook = function(req, res) {
-    productModel.countBook(function(err, data){
-        if(err){
+exports.countBook = function (req, res) {
+    productModel.countBook(function (err, data) {
+        if (err) {
             res.status(400).send(err);
             return;
         }
@@ -495,41 +500,41 @@ exports.countBook = function(req, res) {
     });
 };
 
-exports.countBookbyPublisher = function(req, res) {
+exports.countBookbyPublisher = function (req, res) {
     var id = req.params.publisherID;
-    productModel.countBookbyPublisher(id, function(err, data){
-        if(err){
+    productModel.countBookbyPublisher(id, function (err, data) {
+        if (err) {
             res.status(400).send(err);
             return;
         }
         res.send(data);
     });
 };
-exports.uploadImage = function(req,res){
-  let imageFile = req.files.file
-  imageFile.mv(`${__dirname}/${imageFile.name}`, function(err) {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    res.status(200);
-  });
-  var oldPath = `${__dirname}/${imageFile.name}`
-  var newPath = './public/images/Product/'+imageFile.name
-  fs.readFile(oldPath , function(err, data) {
-    fs.writeFile(newPath, data, function(err) {
-        fs.unlink(oldPath, function(){
-            if(err) throw err;
-           
+exports.uploadImage = function (req, res) {
+    let imageFile = req.files.file
+    imageFile.mv(`${__dirname}/${imageFile.name}`, function (err) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        res.status(200);
+    });
+    var oldPath = `${__dirname}/${imageFile.name}`
+    var newPath = './public/images/Product/' + imageFile.name
+    fs.readFile(oldPath, function (err, data) {
+        fs.writeFile(newPath, data, function (err) {
+            fs.unlink(oldPath, function () {
+                if (err) throw err;
+
+            });
         });
-    }); 
-}); 
+    });
 }
 
 /////// KHU VUC TEST
-exports.findByPublisherPaging = function(req, res) {
+exports.findByPublisherPaging = function (req, res) {
     var id = req.body.publisherID;
     var startPage = req.body.startPage;
-    productModel.findByPublisherPaging(id, startPage, function(err, data){
+    productModel.findByPublisherPaging(id, startPage, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -538,9 +543,9 @@ exports.findByPublisherPaging = function(req, res) {
     });
 };
 
-exports.getOrderbillDetail = function(req, res) {
+exports.getOrderbillDetail = function (req, res) {
     var id = req.params.id
-    productModel.getOrderbillDetail(id,function(err, data){
+    productModel.getOrderbillDetail(id, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -549,13 +554,13 @@ exports.getOrderbillDetail = function(req, res) {
     });
 };
 
-exports.updateAccountAdmin = function(req, res) {
-    var account={                                                                                                                                                                                                                                                 
+exports.updateAccountAdmin = function (req, res) {
+    var account = {
         MaTaiKhoan: req.body.MaTaiKhoan,
         TenHienThi: req.body.TenHienThi,
         DiaChi: req.body.DiaChi,
     }
-    productModel.updateAccountAdmin(account,function(err, data){
+    productModel.updateAccountAdmin(account, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -563,6 +568,7 @@ exports.updateAccountAdmin = function(req, res) {
         res.send(data);
     });
 };
+<<<<<<< HEAD
 exports.changePassword = function(req, res) {
     var account={                                                                                                                                                                                                                                                 
         MaTaiKhoan: req.body.MaTaiKhoan,
@@ -577,15 +583,75 @@ exports.changePassword = function(req, res) {
     });
 };
 exports.searchResult = function(req, res) {
+=======
+
+exports.searchResult = function (req, res) {
+>>>>>>> 2d18ca811295610578b87386d079d3cfeebbe897
     var object = {
-         TenSanPham : req.query.TenSach,
-         GiaTu : req.query.GiaTu,
-         GiaDen : req.query.GiaDen,
-         MaLoaiSanPham: req.query.MaLoaiSanPham,
-         MaHangSanXuat: req.query.MaHangSanXuat,
-         TenTacGia: req.query.TenTacGia      
+        TenSanPham: req.query.TenSach,
+        GiaTu: req.query.GiaTu,
+        GiaDen: req.query.GiaDen,
+        MaLoaiSanPham: req.query.MaLoaiSanPham,
+        MaHangSanXuat: req.query.MaHangSanXuat,
+        TenTacGia: req.query.TenTacGia
     }
-    productModel.searchResult(object,function(err, data){
+    productModel.searchResult(object, function (err, data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+
+exports.addOrder = function (req, res) {
+    var dondathang = {
+        NgayLap: req.body.NgayLap,
+        TongTien: req.body.TongTien,
+        MaTaiKhoan: req.body.MaTaiKhoan,
+    }
+    productModel.addOrder(dondathang, function (err, data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.recentIDorder = function (req, res) {
+    productModel.recentIDorder(function (err, data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.addOrderDetail = function (req, res) {
+    var chitiet = {
+        SoLuong: req.body.SoLuong,
+        GiaBan: req.body.GiaBan,
+        MaDonDatHang: req.body.MaDonDatHang,
+        MaSanPham: req.body.MaSanPham
+    };
+    productModel.addOrderDetail(chitiet, function (err, data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.updateInventory = function (req, res) {
+    var sp = {
+        MaSanPham: req.body.MaSanPham,
+        SoLuong: req.body.SoLuong,
+    };
+    productModel.updateInventory(sp, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
