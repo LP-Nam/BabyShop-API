@@ -22,3 +22,9 @@
     * POST ***/api/product*** thêm mới 1 sản phẩm
     * POST ***/api/register*** thêm 1 tài khoản mới
     * POST ***/api/checkUsername*** kiểm tra tài khoản có tồn tại
+
+    
+    * POST ***/api/order/add*** thêm đơn đặt hàng
+    * GET ***/api/order/recentID*** lấy mã đơn đặt hàng vừa tạo
+    * POST ***/api/orderDetail/add*** thêm chi tiết đơn đặt hàng
+    * POST ***/api/product/updateInventory*** cập nhật số lượng tồn sản phẩm
