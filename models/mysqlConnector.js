@@ -15,7 +15,7 @@ var mysql = require('mysql');
 // Initialize pool for heroku host
 
 var pool      =    mysql.createPool({
-    connectionLimit : 550,
+    connectionLimit : 1000,
     host     : 'db4free.net',
     user     : 'luanpham2',
     password : 'luan1997.',
