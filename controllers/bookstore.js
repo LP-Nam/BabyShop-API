@@ -1,6 +1,8 @@
 var productModel = require('../models/bookstore.js');
 var path = require('path');
 var fs = require('fs');
+const request = require('request');
+
 exports.createPublisher = function (req, res) {
     productModel.createPublisher(req.body, function (err, data) {
         if (err) {
@@ -33,13 +35,42 @@ exports.createProduct = function (req, res) {
 
 // them 1 tai khoan
 exports.register = function (req, res) {
-    productModel.register(req.body, function (err, data) {
-        if (err) {
-            res.status(400).send(err);
-            return;
-        }
-        res.status(201).send(data);
-    });
+    console.log(req.body);
+    if (
+        req.body.captcha === undefined ||
+        req.body.captcha === '' ||
+        req.body.captcha === null
+    ) {
+        res.send({ "success": false, "msg": "Please select captcha" });
+    }
+    else {
+        // Secret Key
+        const secretKey = '6Lcxbl8UAAAAAFqMN0P72Lkv7tZt3MZe3WsWSWYn';
+
+        // Verify URL
+        const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+
+        // Make Request To VerifyURL
+        request(verifyUrl, (err, response, body) => {
+            body = JSON.parse(body);
+            // console.log(body);
+
+            // If Not Successful
+            if (body.success !== undefined && !body.success) {
+                res.send({ "success": false, "msg": "Failed captcha verification" });
+            }
+
+            //If Successful
+            productModel.register(req.body, function (err, data) {
+                if (err) {
+                    res.status(400).send({ "success": false, "msg": err });
+                    return;
+                }
+                // res.status(201).send(data);
+                res.status(201).send({ "success": true, "msg": "Captcha passed", "data": data });
+            });
+        });
+    }
 };
 
 
@@ -360,15 +391,15 @@ exports.updateAccount = function (req, res) {
         res.send(data);
     });
 };
-exports.updateInfor = function(req, res) {
-    var account={                                                                                                                                                                                                                                                 
+exports.updateInfor = function (req, res) {
+    var account = {
         MaTaiKhoan: req.params.id,
         TenHienThi: req.body.TenHienThi,
         DienThoai: req.body.DienThoai,
         DiaChi: req.body.DiaChi,
         Email: req.body.Email
     }
-    productModel.updateInfor(account,function(err, data){
+    productModel.updateInfor(account, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -376,8 +407,8 @@ exports.updateInfor = function(req, res) {
         res.send(data);
     });
 };
-exports.addBook = function(req, res) {
-    var book={                                                                                                                                                                                                                                                 
+exports.addBook = function (req, res) {
+    var book = {
         TenSanPham: req.body.TenSanPham,
         TenTacGia: req.body.TenTacGia,
         MaLoaiSanPham: req.body.MaLoaiSanPham,
@@ -563,12 +594,12 @@ exports.updateAccountAdmin = function (req, res) {
         res.send(data);
     });
 };
-exports.changePassword = function(req, res) {
-    var account={                                                                                                                                                                                                                                                 
+exports.changePassword = function (req, res) {
+    var account = {
         MaTaiKhoan: req.body.MaTaiKhoan,
         MatKhau: req.body.MatKhau
     }
-    productModel.changePassword(account,function(err, data){
+    productModel.changePassword(account, function (err, data) {
         if (err) {
             res.status(400).send(err);
             return;
@@ -652,7 +683,7 @@ exports.updateInventory = function (req, res) {
 };
 
 exports.ListComment = function (req, res) {
-    var idbook=req.params.idProduct;
+    var idbook = req.params.idProduct;
     productModel.ListComment(idbook, function (err, data) {
         if (err) {
             res.status(400).send(err);
