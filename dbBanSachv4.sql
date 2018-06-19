@@ -29,8 +29,9 @@ CREATE TABLE `binhluan` (
   `ThoiGian` datetime DEFAULT NULL,
   `MaSanPham` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_binhluan_sanpham` (`MaSanPham`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `fk_binhluan_sp_idx` (`MaSanPham`),
+  CONSTRAINT `fk_binhluan_sp` FOREIGN KEY (`MaSanPham`) REFERENCES `sanpham` (`MaSanPham`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +40,7 @@ CREATE TABLE `binhluan` (
 
 LOCK TABLES `binhluan` WRITE;
 /*!40000 ALTER TABLE `binhluan` DISABLE KEYS */;
-INSERT INTO `binhluan` VALUES (1,'LuanPham','binh luan hien thi','2018-06-09 09:43:01',65);
+INSERT INTO `binhluan` VALUES (1,'LuanPham','sach hay','2018-06-19 16:21:25',65);
 /*!40000 ALTER TABLE `binhluan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +62,7 @@ CREATE TABLE `chitietdondathang` (
   KEY `fk_ChiTietDonDatHang_SanPham1_idx` (`MaSanPham`),
   CONSTRAINT `fk_ChiTietDonDatHang_SanPham1` FOREIGN KEY (`MaSanPham`) REFERENCES `sanpham` (`MaSanPham`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_chitiet_dondat` FOREIGN KEY (`MaDonDatHang`) REFERENCES `dondathang` (`MaDonDatHang`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +71,7 @@ CREATE TABLE `chitietdondathang` (
 
 LOCK TABLES `chitietdondathang` WRITE;
 /*!40000 ALTER TABLE `chitietdondathang` DISABLE KEYS */;
-INSERT INTO `chitietdondathang` VALUES (1,1,60000,1,63),(2,1,90000,1,64),(3,1,150000,2,48),(4,2,150000,3,65),(5,2,150000,4,65),(6,1,70000,4,52),(7,1,150000,5,65),(8,10,50000,5,49);
+INSERT INTO `chitietdondathang` VALUES (1,1,60000,1,63),(2,1,90000,1,64),(3,1,150000,2,48),(13,1,70000,53,52),(14,1,40000,54,61),(15,6,90000,54,50),(16,1,150000,54,65);
 /*!40000 ALTER TABLE `chitietdondathang` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +93,7 @@ CREATE TABLE `dondathang` (
   KEY `fk_DonDatHang_TinhTrang1_idx` (`MaTinhTrang`),
   CONSTRAINT `fk_DonDatHang_TaiKhoan1` FOREIGN KEY (`MaTaiKhoan`) REFERENCES `taikhoan` (`MaTaiKhoan`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_DonDatHang_TinhTrang1` FOREIGN KEY (`MaTinhTrang`) REFERENCES `tinhtrang` (`MaTinhTrang`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +102,7 @@ CREATE TABLE `dondathang` (
 
 LOCK TABLES `dondathang` WRITE;
 /*!40000 ALTER TABLE `dondathang` DISABLE KEYS */;
-INSERT INTO `dondathang` VALUES (1,'2018-01-04 14:33:59',150000,5,2),(2,'2018-01-06 17:33:24',150000,5,4),(3,'2018-06-09 08:16:08',300000,7,1),(4,'2018-06-09 08:17:57',370000,7,1),(5,'2018-06-09 08:21:10',650000,7,1);
+INSERT INTO `dondathang` VALUES (1,'2018-01-04 14:33:59',150000,5,2),(2,'2018-01-06 17:33:24',150000,5,4),(53,'2018-06-16 04:19:45',70000,5,1),(54,'2018-06-18 18:53:47',730000,5,1);
 /*!40000 ALTER TABLE `dondathang` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,7 +207,7 @@ CREATE TABLE `sanpham` (
   KEY `fk_SanPham_HangSanXuat1_idx` (`MaHangSanXuat`),
   CONSTRAINT `fk_SanPham_HangSanXuat1` FOREIGN KEY (`MaHangSanXuat`) REFERENCES `hangsanxuat` (`MaHangSanXuat`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_SanPham_LoaiSanPham1` FOREIGN KEY (`MaLoaiSanPham`) REFERENCES `loaisanpham` (`MaLoaiSanPham`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +216,7 @@ CREATE TABLE `sanpham` (
 
 LOCK TABLES `sanpham` WRITE;
 /*!40000 ALTER TABLE `sanpham` DISABLE KEYS */;
-INSERT INTO `sanpham` VALUES (46,'Khám Phá Luật Hấp Dẫn Để Mở Khóa Thành Công','Orison Swett Marden','1.jpg',100000,'2012-08-25 00:00:00',14,9,25,'',1,1,3),(47,'Thất Bại Để Thành Công','Nhiều Tác Giả','2.jpg',120000,'2012-05-01 00:00:00',14,6,4,'',0,1,3),(48,'Cuộc Phiêu Lưu Kỳ Thú Của Ếch Xanh Cùng Những Người Bạn Tuyệt Vời','Lê Hữu Nam','3.jpg',150000,'2012-09-12 00:00:00',23,2,9,'',0,1,3),(49,'Cô Gái Hà Nội Mập Mặc Burqa','Nguyễn Hải Nhật Huy','4.jpg',50000,'2012-07-03 00:00:00',20,0,8,'',0,1,3),(50,'Làm Như Chơi','Minh Niệm','5.jpg',90000,'2012-01-01 00:00:00',24,6,14,'',0,5,2),(51,'Định Vị Cá Nhân','Nhiều Tác Giả','6.jpg',120000,'2012-08-15 00:00:00',28,7,8,'',0,3,1),(52,'Khiêu Vũ Với Ngoài Bút','Joseph Sugarman','8.jpg',70000,'2012-09-01 00:00:00',37,3,38,'',0,3,1),(53,'Những Vụ Kỳ Án Của Sherlock Holmes','Arthur Conan Doyle','11.jpg',80000,'2012-10-02 00:00:00',19,0,0,'',0,3,1),(54,'Cậu Bé Chăn Cừu','Aesop','12.jpg',92000,'2012-10-04 00:00:00',10,2,14,'',0,1,3),(55,'Ngọc Lê Hồn','Từ Chẩm Á','13.jpg',40000,'2012-09-25 00:00:00',5,5,1,'',0,1,3),(56,'Thuốc Mê','Thâm Tâm','14.jpg',80000,'2012-08-27 00:00:00',19,3,3,'',0,1,3),(57,'Tiệm Đồ Cổ Á Xá','Huyền Sắc','16.jpg',60000,'2012-07-13 00:00:00',50,3,5,'',0,1,3),(58,'Một Với Một Là Ba','Dave Trott','17.jpg',100000,'2012-09-15 00:00:00',60,3,2,'',0,1,3),(59,'Thuật Hùng Biện','Brian Tracy','18.jpg',150000,'2012-09-14 00:00:00',30,30,22,'',0,1,3),(60,'Kinh Điển Về Khởi Nghiệp','Bill Aulet','19.jpg',150000,'2012-06-12 00:00:00',19,13,24,'',0,5,2),(61,'Bùi Sơ Ảnh','Lục Xu','20.jpg',40000,'2012-07-12 00:00:00',20,12,13,'',0,5,2),(62,'Quãng Thời Gian Trong Hồi Ức','Diệp Tử','21.jpg',70000,'2012-08-17 00:00:00',35,12,12,'',0,5,2),(63,'Canh Bạc Tình Yêu','Kim Bính','22.jpg',60000,'2012-10-05 00:00:00',23,28,30,'',0,5,2),(64,'Tạm Biệt Cà Rốt Và Cây Gậy','TS. Paul L. Marciano','23.jpg',90000,'2012-10-07 00:00:00',28,2,24,'',0,5,2),(65,'Sào Huyệt Của Những Ông Trùm','James B.Stewart','24.jpg',150000,'2012-10-08 00:00:00',34,2,6,'',0,2,4);
+INSERT INTO `sanpham` VALUES (46,'Khám Phá Luật Hấp Dẫn Để Mở Khóa Thành Công','Orison Swett Marden','1.jpg',100000,'2012-08-25 00:00:00',14,9,25,'',1,1,3),(47,'Thất Bại Để Thành Công','Nhiều Tác Giả','2.jpg',120000,'2012-05-01 00:00:00',14,6,4,'',0,1,3),(48,'Cuộc Phiêu Lưu Kỳ Thú Của Ếch Xanh Cùng Những Người Bạn Tuyệt Vời','Lê Hữu Nam','3.jpg',150000,'2012-09-12 00:00:00',23,2,9,'',0,1,3),(49,'Cô Gái Hà Nội Mập Mặc Burqa','Nguyễn Hải Nhật Huy','4.jpg',50000,'2012-07-03 00:00:00',20,0,8,'',0,1,3),(50,'Làm Như Chơi','Minh Niệm','5.jpg',90000,'2012-01-01 00:00:00',4,6,14,'',0,5,2),(51,'Định Vị Cá Nhân','Nhiều Tác Giả','6.jpg',120000,'2012-08-15 00:00:00',27,7,8,'',0,3,1),(52,'Khiêu Vũ Với Ngoài Bút','Joseph Sugarman','8.jpg',70000,'2012-09-01 00:00:00',36,3,38,'',0,3,1),(53,'Những Vụ Kỳ Án Của Sherlock Holmes','Arthur Conan Doyle','11.jpg',80000,'2012-10-02 00:00:00',19,0,0,'',0,3,1),(54,'Cậu Bé Chăn Cừu','Aesop','12.jpg',92000,'2012-10-04 00:00:00',10,2,14,'',0,1,3),(55,'Ngọc Lê Hồn','Từ Chẩm Á','13.jpg',40000,'2012-09-25 00:00:00',5,5,1,'',0,1,3),(56,'Thuốc Mê','Thâm Tâm','14.jpg',80000,'2012-08-27 00:00:00',19,3,3,'',0,1,3),(57,'Tiệm Đồ Cổ Á Xá','Huyền Sắc','16.jpg',60000,'2012-07-13 00:00:00',50,3,5,'',0,1,3),(58,'Một Với Một Là Ba','Dave Trott','17.jpg',100000,'2012-09-15 00:00:00',57,3,2,'',0,1,3),(59,'Thuật Hùng Biện','Brian Tracy','18.jpg',150000,'2012-09-14 00:00:00',30,30,22,'',0,1,3),(60,'Kinh Điển Về Khởi Nghiệp','Bill Aulet','19.jpg',150000,'2012-06-12 00:00:00',19,13,24,'',0,5,2),(61,'Bùi Sơ Ảnh','Lục Xu','20.jpg',40000,'2012-07-12 00:00:00',19,12,13,'',0,5,2),(62,'Quãng Thời Gian Trong Hồi Ức','Diệp Tử','21.jpg',70000,'2012-08-17 00:00:00',34,12,12,'',0,5,2),(63,'Canh Bạc Tình Yêu','Kim Bính','22.jpg',60000,'2012-10-05 00:00:00',22,28,30,'',0,5,2),(64,'Tạm Biệt Cà Rốt Và Cây Gậy','TS. Paul L. Marciano','23.jpg',90000,'2012-10-07 00:00:00',27,2,24,'',0,5,2),(65,'Sào Huyệt Của Những Ông Trùm','James B.Stewart','24.jpg',150000,'2012-10-08 00:00:00',27,2,6,'',0,2,4),(66,'Mai Sau Ai Sẽ Nắm Tay Mình','Hikaru','c67cab4bcb2dd0d7c70683a31395ef06 (1).jpg',70400,NULL,100,NULL,NULL,'',0,2,2);
 /*!40000 ALTER TABLE `sanpham` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,7 +240,7 @@ CREATE TABLE `taikhoan` (
   PRIMARY KEY (`MaTaiKhoan`),
   KEY `fk_TaiKhoan_LoaiTaiKhoan_idx` (`MaLoaiTaiKhoan`),
   CONSTRAINT `fk_TaiKhoan_LoaiTaiKhoan` FOREIGN KEY (`MaLoaiTaiKhoan`) REFERENCES `loaitaikhoan` (`MaLoaiTaiKhoan`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -248,7 +249,7 @@ CREATE TABLE `taikhoan` (
 
 LOCK TABLES `taikhoan` WRITE;
 /*!40000 ALTER TABLE `taikhoan` DISABLE KEYS */;
-INSERT INTO `taikhoan` VALUES (5,'admin','admin','Admin website','Baby Shop','0909123456','admin@babyshop.vn',0,2),(6,'luanpham','123','LuanPham',NULL,NULL,NULL,0,1),(7,'luan','94b8cea57c49a3007225a0c70c475450','luan','','','dw@dqdw.com',0,1);
+INSERT INTO `taikhoan` VALUES (5,'admin','admin','Admin website','Baby Shop','0909123456','admin@babyshop.vn',0,2),(6,'luanpham','123','LuanPham','','0972129697','',0,1),(7,'luan','94b8cea57c49a3007225a0c70c475450','luan','','','dw@dqdw.com',0,2),(16,'q','qqqqqqqqq','qqqqqqqqq','','','luanpham.997@outlook.com.vn',1,1);
 /*!40000 ALTER TABLE `taikhoan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,4 +286,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-09  9:44:16
+-- Dump completed on 2018-06-19 16:27:19
