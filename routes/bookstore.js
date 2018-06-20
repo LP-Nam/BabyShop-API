@@ -68,7 +68,7 @@ router.get('/admin/ListBookType', passport.authenticate('jwt', { session: false 
 
 router.get('/admin/ListPublisher', passport.authenticate('jwt', { session: false }), bookstore.findAllListPublisher);
 
-router.get('/admin/getOrderbillDetail/:id',bookstore.getOrderbillDetail);
+router.get('/admin/getOrderbillDetail/:id', bookstore.getOrderbillDetail);
 //upate orbill
 router.get('/admin/UpdateOrderBill/getStatus', bookstore.getStatus);
 
@@ -80,56 +80,56 @@ router.post('/admin/UpdateAccountAdmin', bookstore.updateAccountAdmin);
 router.get('/admin/ListAccount', passport.authenticate('jwt', { session: false }), bookstore.findAllListAccount);
 
 //doi mat khau
-router.post('/changePassword',bookstore.changePassword)
+router.post('/changePassword', bookstore.changePassword)
 
 //cap nhat thogn tin
-router.put('/UpdateInfor/:id',bookstore.updateInfor);
+router.put('/UpdateInfor/:id', bookstore.updateInfor);
 
-router.get('/searchResult',bookstore.searchResult)
+router.get('/searchResult', bookstore.searchResult)
 // tim cac sach cung the loai
 router.post('/product/related', bookstore.findRelated);
 
 //update account 
-router.delete('/admin/UpdateAccount/:id',bookstore.deleteAccount);
-router.get('/admin/findByAccount/:id',bookstore.findByAccount);
-router.get('/admin/getAccountType',bookstore.getAccountType);
-router.post('/admin/UpdateAccount/:id',bookstore.updateAccount);
+router.delete('/admin/UpdateAccount/:id', bookstore.deleteAccount);
+router.get('/admin/findByAccount/:id', bookstore.findByAccount);
+router.get('/admin/getAccountType', bookstore.getAccountType);
+router.post('/admin/UpdateAccount/:id', bookstore.updateAccount);
 //update publisher
-router.get('/admin/findByPublisherAdmin/:id',bookstore.findByPublisherAdmin);
-router.delete('/admin/UpdatePublisher/:id',bookstore.deletePublisher);
-router.put('/admin/UpdatePublisher/:id',bookstore.updatePublisher);
-router.post('/admin/addPublisher',bookstore.addPublisher)
+router.get('/admin/findByPublisherAdmin/:id', bookstore.findByPublisherAdmin);
+router.delete('/admin/UpdatePublisher/:id', bookstore.deletePublisher);
+router.put('/admin/UpdatePublisher/:id', bookstore.updatePublisher);
+router.post('/admin/addPublisher', bookstore.addPublisher)
 
 //update book type
-router.delete('/admin/UpdateBookType/:id',bookstore.deleteBookType);
-router.get('/admin/findByBookType/:id',bookstore.findByBookType);
-router.put('/admin/UpdateBookType/:id',bookstore.updateBookType);
-router.post('/admin/addBookType',bookstore.addBookType)
+router.delete('/admin/UpdateBookType/:id', bookstore.deleteBookType);
+router.get('/admin/findByBookType/:id', bookstore.findByBookType);
+router.put('/admin/UpdateBookType/:id', bookstore.updateBookType);
+router.post('/admin/addBookType', bookstore.addBookType)
 
 // them tai khoan moi
 router.post('/register', bookstore.register);
 
 //update book
-router.get('/admin/getType',bookstore.getType);
+router.get('/admin/getType', bookstore.getType);
 
-router.post('/admin/uploadImage',bookstore.uploadImage)
+router.post('/admin/uploadImage', bookstore.uploadImage)
 //quản lý các sản phẩm
-router.get('/admin/getType',bookstore.getType);
+router.get('/admin/getType', bookstore.getType);
 
-router.post('/admin/upadateBook/uploadImage',bookstore.uploadImage);
+router.post('/admin/upadateBook/uploadImage', bookstore.uploadImage);
 
-router.get('/admin/getPublisher',bookstore.getPublisher);
+router.get('/admin/getPublisher', bookstore.getPublisher);
 
-router.put('/admin/UpdateBook/:id',bookstore.updateBook);
+router.put('/admin/UpdateBook/:id', bookstore.updateBook);
 
-router.delete('/admin/UpdateBook/:id',bookstore.deleteBook);
+router.delete('/admin/UpdateBook/:id', bookstore.deleteBook);
 
-router.get('/admin/findByBook/:bookID',bookstore.findByBook);
+router.get('/admin/findByBook/:bookID', bookstore.findByBook);
 
 //
-router.post('/admin/addBook',bookstore.addBook)
+router.post('/admin/addBook', bookstore.addBook)
 //lay so luong cmt thuoc sach do
-router.get('/comment/product/:idProduct',bookstore.countComment);
+router.get('/comment/product/:idProduct', bookstore.countComment);
 // router.get('/comment/product/:idProduct',bookstore.countComment);
 
 //thêm đơn đặt hàng
@@ -149,6 +149,15 @@ router.get('/comment/getList/:idProduct', bookstore.ListComment);
 
 //* POST ***/api/comment/*** thêm 1 comment
 router.post('/comment', bookstore.addComment);
+
+//* GET ***/api/product/viewUpdate/:idProduct*** cập nhật số lượt xem của sản phẩm
+router.get('/product/viewUpdate/:idProduct', bookstore.updateView);
+
+//* POST ***/api/product/updateQuantitySold*** cập nhật số lượng đã bán của sản phẩm
+router.post('/product/updateQuantitySold', bookstore.updateQuantitySold);
+
+//* GET ***/api/product/top10*** lấy top 10 sản phẩm bán chạy
+router.get('/admin/product/top10', passport.authenticate('jwt', { session: false }), bookstore.getTop10);
 
 
 //// KHU VUC TEST

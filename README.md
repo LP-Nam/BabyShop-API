@@ -32,3 +32,9 @@
     * GET ***/api/comment/product/:idProduct*** lấy số lượng comment thuộc sách đó
     * GET ***/api/comment/getList/:idProduct*** lấy các comment thuộc sách đó
     * POST ***/api/comment/*** thêm 1 comment
+
+    * GET ***/api/product/viewUpdate/:idProduct*** cập nhật số lượt xem của sản phẩm
+
+    * POST ***/api/product/updateQuantitySold*** cập nhật số lượng đã bán của sản phẩm
+
+    * GET ***/api/product/top10*** lấy top 10 sản phẩm bán chạy

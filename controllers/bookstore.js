@@ -704,6 +704,41 @@ exports.addComment = function (req, res) {
     });
 };
 
+exports.updateView = function (req, res) {
+    var idbook = req.params.idProduct;
+    productModel.updateView(idbook, function (err, data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+
+exports.updateQuantitySold = function (req, res) {
+    var sp = {
+        MaSanPham: req.body.MaSanPham,
+        SoLuongBan: req.body.SoLuongBan,
+    };
+    productModel.updateQuantitySold(sp, function (err, data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
+
+exports.getTop10 = function (req, res) {
+    productModel.getTop10(function (err, data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
 
 // exports.update = function(req, res) {
 //     // Update a note identified by the noteId in the request

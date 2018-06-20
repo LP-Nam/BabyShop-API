@@ -141,7 +141,7 @@ exports.findAllBestSeller = function (callback) {
 }
 
 exports.findOne = function (productID, callback) {
-    var strSql = "SELECT lsp.MaLoaiSanPham, sp.GiaSanPham, sp.SoLuongTon, sp.MoTa, sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL,hsx.TenHangSanXuat,lsp.TenLoaiSanPham " +
+    var strSql = "SELECT lsp.MaLoaiSanPham, sp.GiaSanPham, sp.SoLuongTon, sp.SoLuocXem, sp.MoTa, sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL,hsx.TenHangSanXuat,lsp.TenLoaiSanPham " +
         "from sanpham sp,hangsanxuat hsx,loaisanpham lsp " +
         "where sp.MaLoaiSanPham = lsp.MaLoaiSanPham " +
         "and sp.MaHangSanXuat = hsx.MaHangSanXuat " +
@@ -156,17 +156,17 @@ exports.checkUsername = function (un, callback) {
 }
 
 exports.findByPublisher = function (publisherID, callback) {
-    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
-        "from sanpham sp " +
-        "where  sp.BiXoa = FALSE " +
+    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL,hsx.TenHangSanXuat " +
+        "from sanpham sp , hangsanxuat hsx " +
+        "where sp.MaHangSanXuat=hsx.MaHangSanXuat and sp.BiXoa = FALSE " +
         "and sp.MaHangSanXuat = ?";
     db.executeQuery(strSql, publisherID, callback);
 }
 
 exports.findByCategory = function (categoryID, callback) {
-    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL " +
-        "from sanpham sp " +
-        "where sp.BiXoa = FALSE " +
+    var strSql = "SELECT sp.MaSanPham,sp.TenSanPham,sp.GiaSanPham,sp.TenTacGia,sp.HinhURL,l.TenLoaiSanPham " +
+        "from sanpham sp,loaisanpham l " +
+        "where sp.MaLoaiSanPham=l.MaLoaiSanPham and sp.BiXoa = FALSE " +
         "and sp.MaLoaiSanPham = ?";
     db.executeQuery(strSql, categoryID, callback);
 }
@@ -232,10 +232,10 @@ exports.updateAccountAdmin = function (account, callback) {
     db.executeQuery(strSql, callback);
 }
 exports.changePassword = function (account, callback) {
-    var strSql = 
-         " update taikhoan "+
-            " set  MatKhau = '"+account.MatKhau+"'"+
-            " where MaTaiKhoan = "+account.MaTaiKhoan
+    var strSql =
+        " update taikhoan " +
+        " set  MatKhau = '" + account.MatKhau + "'" +
+        " where MaTaiKhoan = " + account.MaTaiKhoan
     db.executeQuery(strSql, callback);
 }
 
@@ -272,13 +272,13 @@ exports.updateAccount = function (account, callback) {
     db.executeQuery(strSql, [account.TenHienThi, account.MaLoaiTaiKhoan, account.DienThoai, account.DiaChi, account.Email, account.MaTaiKhoan], callback);
 }
 exports.updateInfor = function (account, callback) {
-    var strSql = "update taikhoan "+
-                 " set TenHienThi = ?,"+
-                 " DienThoai = ?,"+
-                 " DiaChi = ?,"+
-                 " Email = ?"+
-                 " where MaTaiKhoan = ?"
-    db.executeQuery(strSql,[account.TenHienThi,account.DienThoai,account.DiaChi,account.Email,account.MaTaiKhoan] ,callback);
+    var strSql = "update taikhoan " +
+        " set TenHienThi = ?," +
+        " DienThoai = ?," +
+        " DiaChi = ?," +
+        " Email = ?" +
+        " where MaTaiKhoan = ?"
+    db.executeQuery(strSql, [account.TenHienThi, account.DienThoai, account.DiaChi, account.Email, account.MaTaiKhoan], callback);
 }
 exports.findByBookType = function (id, callback) {
     var strSql = "select TenLoaiSanPham from loaisanpham where MaLoaiSanPham = ?";
@@ -396,6 +396,29 @@ exports.ListComment = function (idbook, callback) {
 exports.addComment = function (cmt, callback) {
     var strSql = "insert into binhluan(TenHienThi,NoiDung,ThoiGian,MaSanPham) value(?,?,?,?)";
     db.executeQuery(strSql, [cmt.TenHienThi, cmt.NoiDung, cmt.ThoiGian, cmt.MaSanPham], callback);
+}
+
+exports.updateView = function (idbook, callback) {
+    var strSql = "update sanpham set SoLuocXem=SoLuocXem+1 where MaSanPham=?";
+    db.executeQuery(strSql, idbook, callback);
+}
+
+exports.updateQuantitySold = function (sp, callback) {
+    let sl = parseInt(sp.SoLuongBan);
+    var strSql = "update sanpham set SoLuongBan = SoLuongBan + ? where MaSanPham = ?";
+    db.executeQuery(strSql, [sl, sp.MaSanPham], callback);
+}
+
+exports.getTop10 = function (callback) {
+    var strSql = "select sp.BiXoa, sp.HinhURL, sp.MaSanPham,sp.TenSanPham,"+
+    "sp.TenTacGia,lsp.TenLoaiSanPham,hsx.TenHangSanXuat,"+
+    "sp.MaLoaiSanPham,sp.MaHangSanXuat,sp.GiaSanPham,sp.SoLuongTon,sp.SoLuongBan,sp.SoLuocXem "+
+    "from sanpham sp,hangsanxuat hsx,loaisanpham lsp "+
+    "where sp.MaHangSanXuat = hsx.MaHangSanXuat and sp.BiXoa=0 "+
+    "and sp.MaLoaiSanPham = lsp.MaLoaiSanPham "+
+    "order by SoLuongBan desc "+
+    "limit 0,10";
+    db.executeQuery(strSql, callback);
 }
 
 /////// KHU VUC TEST
