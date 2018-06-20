@@ -328,6 +328,16 @@ exports.updateOrderBill = function (req, res) {
         res.send(data);
     });
 };
+exports.history = function (req, res) {
+    var userid = req.params.userid
+    productModel.history(userid, function (err, data) {
+        if (err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(data);
+    });
+};
 exports.updateBook = function (req, res) {
     var book = {
         MaSanPham: req.params.id,

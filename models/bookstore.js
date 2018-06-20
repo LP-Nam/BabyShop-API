@@ -223,6 +223,12 @@ exports.upateOrderBill = function (orderBill, callback) {
         " where MaDonDatHang = " + orderBill.MaDonDatHang
     db.executeQuery(strSql, callback);
 }
+exports.history = function (userid, callback) {
+    var strSql = "SELECT D.MaDonDatHang,D.MaTaiKhoan,D.MaTinhTrang,T.TenTinhTrang,D.NgayLap,D.TongThanhTien,TK.TenHienThi,TK.DiaChi " +
+    " from dondathang D,tinhtrang T ,taikhoan TK" +
+    " where D.MaTinhTrang = T.MaTinhTrang and TK.MaTaiKhoan = D.MaTaiKhoan and TK.MaTaiKhoan = "+userid;
+    db.executeQuery(strSql,callback);
+}
 exports.updateAccountAdmin = function (account, callback) {
     var strSql =
         " update taikhoan " +

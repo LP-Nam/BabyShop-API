@@ -75,6 +75,9 @@ router.get('/admin/UpdateOrderBill/getStatus', bookstore.getStatus);
 router.get('/admin/UpdateOrderBill/:OrderBillID', bookstore.findByOrderBill);
 
 router.post('/admin/UpdateOrderBill/:OrderBillID', bookstore.updateOrderBill);
+
+router.get("/history/:userid",bookstore.history);
+
 router.post('/admin/UpdateAccountAdmin', bookstore.updateAccountAdmin);
 
 router.get('/admin/ListAccount', passport.authenticate('jwt', { session: false }), bookstore.findAllListAccount);
